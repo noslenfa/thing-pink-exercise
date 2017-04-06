@@ -1,0 +1,14 @@
+//styles to login page
+@import 'variables';
+
+.login-area {
+  max-width: 500px;
+  margin-top: 5%;
+  background-color: $grey-ligth;
+  border-radius: 5px;
+  button {
+    width: 200px;
+    margin: 10px auto;
+    display: flex;
+  }
+}
