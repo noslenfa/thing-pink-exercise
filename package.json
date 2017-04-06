@@ -2,10 +2,13 @@
   "name": "thing-pink-exercise",
   "version": "0.0.1",
   "description": "Thing Pink Exercise",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noslenfa/thing-pink-exercise.git"
+  },
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=local APP_ENV=local webpack-dev-server --config config/webpack.dev.config.js",
-    "build": "rimraf dist && webpack --config ./config/webpack.dist.config.js"
+    "start": "NODE_ENV=local APP_ENV=local webpack-dev-server --config config/webpack.dev.config.js"
   },
   "keywords": [
     "Thing Pink",
