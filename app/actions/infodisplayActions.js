@@ -2,10 +2,13 @@
 /*eslint no-undef: "error"*/
 
 import fetch from 'isomorphic-fetch'
+import _ from 'lodash';
 
 export const FETCH_SHOTS = 'FETCH_SHOTS'
 export const FETCH_SHOTS_FULFILLED = 'FETCH_SHOTS_FULFILLED'
 export const FETCH_SHOTS_REJECTED = 'FETCH_SHOTS_REJECTED'
+export const SHOTS_SORT_ASC = 'SHOTS_SORT_ASC'
+export const SHOTS_SORT_DESC = 'SHOTS_SORT_DESC'
 
 function requestShots() {
   return {
@@ -23,8 +26,24 @@ function receiveShots(json) {
 function rejectShots() {
   return {
     type: FETCH_SHOTS_REJECTED
-
   }
+}
+
+
+function shotsSortAsc(shots) {
+  return {
+    type: SHOTS_SORT_ASC,
+    shots: shots
+  }
+  // console.log(_.sortBy(shots, [likesCount]));
+}
+
+function shotsSortDesc(shots) {
+  return {
+    type: SHOTS_SORT_DESC,
+    shots: shots
+  }
+  // console.log(_.sortBy(shots, [likesCount]).reverse());
 }
 
 export function fetchShots() {
@@ -72,4 +91,25 @@ export function fetchShots() {
     })
 
   }
+}
+
+export function shotsSort(order, shots) {
+
+  return function (dispatch) {
+    let orderedShots;
+    console.log(shots);
+
+    if (order === 'asc') {
+      orderedShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
+      console.log(orderedShots);
+      dispatch(shotsSortAsc(orderedShots));
+    } else if (order === 'desc') {
+      orderedShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
+      console.log(orderedShots);
+      dispatch(shotsSortDesc(orderedShots));
+    }
+  }
+
+  // console.log(_.sortBy(shots, [likesCount]));
+  // console.log(_.sortBy(shots, [likesCount]).reverse());
 }
