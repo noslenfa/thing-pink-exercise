@@ -9,6 +9,7 @@ export const FETCH_SHOTS_FULFILLED = 'FETCH_SHOTS_FULFILLED'
 export const FETCH_SHOTS_REJECTED = 'FETCH_SHOTS_REJECTED'
 export const SHOTS_SORT_ASC = 'SHOTS_SORT_ASC'
 export const SHOTS_SORT_DESC = 'SHOTS_SORT_DESC'
+export const SHOTS_FILTER_TAGS = 'SHOTS_FILTER_TAGS'
 
 function requestShots() {
   return {
@@ -35,7 +36,6 @@ function shotsSortAsc(shots) {
     type: SHOTS_SORT_ASC,
     shots: shots
   }
-  // console.log(_.sortBy(shots, [likesCount]));
 }
 
 function shotsSortDesc(shots) {
@@ -43,8 +43,15 @@ function shotsSortDesc(shots) {
     type: SHOTS_SORT_DESC,
     shots: shots
   }
-  // console.log(_.sortBy(shots, [likesCount]).reverse());
 }
+
+function filterTagsShots(shots) {
+  return {
+    type: SHOTS_FILTER_TAGS,
+    shots: shots
+  }
+}
+
 
 export function fetchShots() {
 
@@ -65,7 +72,7 @@ export function fetchShots() {
     // In this case, we return a promise to wait for.
     // This is not required by thunk middleware, but it is convenient for us.
 
-    return fetch(`${ENV.API.BASE}${ENV.API.SHOTS}?per_page=20`, {
+    return fetch(`${ENV.API.BASE}${ENV.API.SHOTS}?per_page=100`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${ENV.DRIBBBLE_KEY}`
@@ -97,19 +104,31 @@ export function shotsSort(order, shots) {
 
   return function (dispatch) {
     let orderedShots;
-    console.log(shots);
 
     if (order === 'asc') {
       orderedShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
-      console.log(orderedShots);
       dispatch(shotsSortAsc(orderedShots));
     } else if (order === 'desc') {
       orderedShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
-      console.log(orderedShots);
       dispatch(shotsSortDesc(orderedShots));
     }
   }
 
-  // console.log(_.sortBy(shots, [likesCount]));
-  // console.log(_.sortBy(shots, [likesCount]).reverse());
+}
+
+export function filterTags(tag, shots) {
+
+  return function (dispatch) {
+    let filteredTagsShots = new Set();
+
+    shots.forEach(shot => {
+      let tags = shot.tags;
+      if (_.includes(tags, tag)) {
+        filteredTagsShots.add(shot);
+      }
+    });
+
+    dispatch(filterTagsShots(filteredTagsShots));
+  }
+
 }

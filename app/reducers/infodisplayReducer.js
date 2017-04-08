@@ -3,7 +3,8 @@ import {
   FETCH_SHOTS_FULFILLED,
   FETCH_SHOTS_REJECTED,
   SHOTS_SORT_ASC,
-  SHOTS_SORT_DESC
+  SHOTS_SORT_DESC,
+  SHOTS_FILTER_TAGS
 } from '../actions/infodisplayActions'
 
 export default function shots(state = {
@@ -36,6 +37,11 @@ export default function shots(state = {
         items: action.shots
       }
     case SHOTS_SORT_DESC:
+      return {
+        ...state,
+        items: action.shots
+      }
+    case SHOTS_FILTER_TAGS:
       return {
         ...state,
         items: action.shots

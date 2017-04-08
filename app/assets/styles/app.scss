@@ -2,6 +2,21 @@
 @import 'login';
 @import 'shotslist';
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .margin-zero {
   margin: 0 !important;
+}
+
+.spinning-loader {
+  border: 8px solid $spinning-loader-grey;
+  border-radius: 50%;
+  border-top: 8px solid $spinning-loader-blue;
+  width: 80px;
+  height: 80px;
+  margin: 50px auto;
+  animation: spin 1.5s linear infinite;
 }

@@ -5,6 +5,7 @@ require('normalize.css/normalize.css');
 
 import React, { Component } from 'react';
 
+//oauth used for authentication
 import {OAuth} from 'oauthio-web';
 
 //react bootstrap
@@ -22,21 +23,17 @@ class Login extends Component {
   }
 
   executeOAuth(provider) {
-    //Using popup (option 1)
     OAuth.popup(provider)
     .done(result => {
       /* eslint-disable no-console */
       console.log('result ', result);
       /* eslint-enable no-console */
       this.context.router.replace('home');
-     //use result.access_token in your API request
-     //or use result.get|post|put|del|patch|me methods (see below)
     })
     .fail(err => {
       /* eslint-disable no-console */
       console.log('err ', err);
       /* eslint-enable no-console */
-     //handle error with err
     });
   }
 

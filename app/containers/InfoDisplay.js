@@ -1,29 +1,32 @@
 require('normalize.css/normalize.css');
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 //react bootstrap
-import Button from 'react-bootstrap/lib/Button';
+import Button from 'react-bootstrap/lib/Button'
 
+// actions
 import { fetchShots, shotsSort } from '../actions/infodisplayActions'
 
+// components
 import ShotsList from '../components/ShotsList'
 
 const mapStateToProps = (state) => {
   return state;
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        delete: (data) => {
-            return removeSession(dispatch, data);
-        },
-        dispatch: dispatch
-    };
-};
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         delete: (data) => {
+//             return removeSession(dispatch, data);
+//         },
+//         dispatch: dispatch
+//     };
+// };
 
 class InfoDisplay extends Component {
+
   constructor(props, context){
 		super(props);
     context.router;
@@ -39,12 +42,13 @@ class InfoDisplay extends Component {
 
   render() {
 
-    let items = this.props.infodisplay.items,
-      shots = [],
-      totalTags = [];
-      // sTags = new Set();
+    console.log(this.props);
 
-      console.log(items);
+    let items = this.props.infodisplay.items,
+      isFetching = this.props.infodisplay.isFetching,
+      shots = [],
+      shotsRendered;
+      // sTags = new Set();
 
     items.forEach(item => {
       let tags = item.tags;
@@ -66,7 +70,14 @@ class InfoDisplay extends Component {
       // totalTags = Array.from(sTags);
     })
 
-    const shotsMapped = shots.map(shot => <ShotsList shot={shot} key={shot.id}></ShotsList>)
+    const shotsMapped = shots.map(shot => <ShotsList shot={shot} shots={shots} key={shot.id}></ShotsList>);
+
+    if (isFetching) {
+      shotsRendered = <div className='spinning-loader'></div>
+    } else {
+      shotsRendered = shotsMapped;
+    }
+
     return (
       <div>
         <div className="container shots-list-area">
@@ -75,7 +86,7 @@ class InfoDisplay extends Component {
             <Button bsStyle="primary" onClick={this.shotsSort.bind(this, 'desc', shots)}>DESCENDING</Button>
           </div>
           <div className="shots-list">
-            {shotsMapped}
+            {shotsRendered}
           </div>
         </div>
       </div>

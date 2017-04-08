@@ -15,10 +15,6 @@ class Home extends Component {
       const oauthio_provider = Object.keys(oauthio_cache)[0];
       const oauthio_provider_info = JSON.parse(decodeURIComponent(localStorage.getItem(oauthio_provider)));
 
-      /* eslint-disable no-console */
-      console.log(oauthio_provider_info);
-      /* eslint-enable no-console */
-
         if (!(oauthio_provider_info && 'access_token' in oauthio_provider_info && oauthio_provider_info.access_token)) {
           this.context.router.replace('login');
         }
