@@ -74,7 +74,7 @@ class InfoDisplay extends Component {
             <Button bsStyle="primary" onClick={this.shotsSort.bind(this, 'asc', shots)}>ASCENDING</Button>
             <Button bsStyle="primary" onClick={this.shotsSort.bind(this, 'desc', shots)}>DESCENDING</Button>
           </div>
-          <div>
+          <div className="shots-list">
             {shotsMapped}
           </div>
         </div>

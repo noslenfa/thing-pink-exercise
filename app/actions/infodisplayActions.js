@@ -65,7 +65,7 @@ export function fetchShots() {
     // In this case, we return a promise to wait for.
     // This is not required by thunk middleware, but it is convenient for us.
 
-    return fetch(`${ENV.API.BASE}${ENV.API.SHOTS}`, {
+    return fetch(`${ENV.API.BASE}${ENV.API.SHOTS}?per_page=20`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${ENV.DRIBBBLE_KEY}`

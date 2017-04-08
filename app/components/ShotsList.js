@@ -32,8 +32,8 @@ class ShotsList extends Component {
 
 
     return (
-      <div className="shots-list">
-        <Row>
+      <div className="shots-list-item">
+        <Row className="margin-zero">
           <Col xs={4}>
             <img src={shot.avatarUrl}/>
           </Col>
@@ -44,7 +44,7 @@ class ShotsList extends Component {
           </Col>
         </Row>
         <hr />
-        <Row className="shots-list-tags">
+        <Row className="shots-list-tags margin-zero">
           <Col xs={1}>
             <div>Tags:</div>
           </Col>
