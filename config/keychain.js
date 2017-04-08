@@ -5,10 +5,12 @@
  */
 module.exports = {
   'LOCAL': {
-    OAUTH_IO : 'MYVUPpqdABu0S-xNwUQ1FeOlYeM'
+    OAUTH_IO_KEY : 'MYVUPpqdABu0S-xNwUQ1FeOlYeM',
+    DRIBBBLE_KEY : 'cd03f523f933eabe57d6aefbfcee28d6c20e4c72014b98e110e3f5de7c2d3075'
   },
 
   'PRODUCTION': {
-    OAUTH_IO : 'MYVUPpqdABu0S-xNwUQ1FeOlYeM'
+    OAUTH_IO_KEY : 'MYVUPpqdABu0S-xNwUQ1FeOlYeM',
+    DRIBBBLE_KEY : 'cd03f523f933eabe57d6aefbfcee28d6c20e4c72014b98e110e3f5de7c2d3075'
   }
 };

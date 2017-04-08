@@ -1,12 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import Router from 'react-router/lib/Router';
-import Route from 'react-router/lib/Route';
-import IndexRedirect from 'react-router/lib/IndexRedirect';
-import browserHistory from 'react-router/lib/browserHistory';
+import Router from 'react-router/lib/Router'
+import Route from 'react-router/lib/Route'
+import IndexRedirect from 'react-router/lib/IndexRedirect'
+import browserHistory from 'react-router/lib/browserHistory'
 
 //containers
-import Login from './Login';
+import Login from './Login'
+import Home from './Home'
+import InfoDisplay from './InfoDisplay'
+import SVGDisplay from './SVGDisplay'
 
 class App extends React.Component {
 
@@ -16,6 +19,9 @@ class App extends React.Component {
         <Route path={'/'} handler={App}>
           <IndexRedirect to="login" />
           <Route path={'login'} component={Login} />
+          <Route path={'home'} component={Home} />
+          <Route path={'infodisplay'} component={InfoDisplay} />
+          <Route path={'svgdisplay'} component={SVGDisplay} />
         </Route>
       </Router>
     );
