@@ -26,17 +26,15 @@ class Home extends Component {
   render() {
 
     return (
-      <div>
-        <div className="container login-area">
-            <div className="text-center">
-              <div>
-                <Link to="/svgdisplay">Go SVG Display</Link>
-              </div>
-              <div>
-                <Link to="/infodisplay">Go Info Display</Link>
-              </div>
+      <div className="container login-area">
+          <div className="text-center">
+            <div>
+              <Link to="/svgdisplay">Go SVG Display</Link>
             </div>
-        </div>
+            <div>
+              <Link to="/infodisplay">Go Info Display</Link>
+            </div>
+          </div>
       </div>
   );
   }

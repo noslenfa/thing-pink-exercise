@@ -77,7 +77,7 @@ module.exports = {
           use: ['style-loader', 'css-loader', 'sass-loader']
         },
         {
-          test: /\.(svg|gif|jpg|png|ico)$/,
+          test: /\.(svg|gif|jpg|png|ico|eot|ttf|woff|woff2)$/,
           exclude: /(node_modules)/,
           use: {
             loader: 'file-loader',
