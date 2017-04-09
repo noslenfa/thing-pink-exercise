@@ -16,14 +16,13 @@ const mapStateToProps = (state) => {
   return state;
 }
 
-class ShotsList extends Component {
+class Shot extends Component {
 
   constructor(props) {
     super(props);
   }
 
   filterTags(tag, shots) {
-    console.log(this.props);
     this.props.dispatch(filterTags(tag, shots));
   }
 
@@ -72,6 +71,6 @@ class ShotsList extends Component {
   }
 }
 
-ShotsList = connect(mapStateToProps)(ShotsList);
+Shot = connect(mapStateToProps)(Shot);
 
-export default ShotsList;
+export default Shot;

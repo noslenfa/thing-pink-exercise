@@ -3,14 +3,18 @@ require('normalize.css/normalize.css');
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import InfiniteScroll from 'react-infinite-scroller'
+
 //react bootstrap
 import Button from 'react-bootstrap/lib/Button'
+import FormGroup from 'react-bootstrap/lib/FormGroup'
+import FormControl from 'react-bootstrap/lib/FormControl'
 
 // actions
-import { fetchShots, shotsSort } from '../actions/infodisplayActions'
+import { fetchShots, shotsSort, searchTags } from '../actions/infodisplayActions'
 
 // components
-import ShotsList from '../components/ShotsList'
+import Shot from '../components/Shot'
 
 const mapStateToProps = (state) => {
   return state;
@@ -33,44 +37,38 @@ class InfoDisplay extends Component {
 	}
 
   componentWillMount() {
-    this.props.dispatch(fetchShots());
+    let numPage = this.props.infodisplay.numPage,
+      initialShots = [];
+
+    this.props.dispatch(fetchShots(numPage, initialShots));
   }
 
   shotsSort(order, shots) {
     this.props.dispatch(shotsSort(order, shots));
   }
 
+  handleSearchTags(initialShots, e) {
+    this.props.dispatch(searchTags(e.target.value, initialShots));
+  }
+
+  loadFunc() {
+    let numPage = this.props.infodisplay.numPage;
+
+    numPage++;
+
+    // this.props.dispatch(fetchShots(numPage));
+    console.log('INFINITE');
+
+  }
+
   render() {
 
-    console.log('props ', this.props);
-
-    let items = this.props.infodisplay.items,
+    let shots = this.props.infodisplay.items,
+      initialShots = this.props.infodisplay.initialItems,
       isFetching = this.props.infodisplay.isFetching,
-      shots = [],
       shotsRendered;
-      // sTags = new Set();
 
-    items.forEach(item => {
-      let tags = item.tags;
-      console.log('item ', item);
-      shots.push({
-        id: item.id,
-        username: item.user && item.user.name || item.username,
-        title: item.title,
-        avatarUrl: item.user && item.user.avatar_url || item.avatarUrl,
-        imageUrl: item.images && item.images.teaser || item.imageUrl,
-        likesCount: item.likes_count || item.likesCount,
-        tags: item.tags
-      });
-
-      // tags.forEach(tag => {
-      //   sTags.add(tag)
-      // })
-      //
-      // totalTags = Array.from(sTags);
-    })
-
-    const shotsMapped = shots.map(shot => <ShotsList shot={shot} shots={shots} key={shot.id}></ShotsList>);
+    const shotsMapped = shots.map(shot => <Shot shot={shot} shots={initialShots} key={shot.id}></Shot>);
 
     if (isFetching) {
       shotsRendered = <div className='spinning-loader'></div>
@@ -84,9 +82,24 @@ class InfoDisplay extends Component {
           <div className="shots-list-buttons text-center">
             <Button bsStyle="primary" onClick={this.shotsSort.bind(this, 'asc', shots)}>ASCENDING</Button>
             <Button bsStyle="primary" onClick={this.shotsSort.bind(this, 'desc', shots)}>DESCENDING</Button>
+            <FormGroup>
+              <FormControl
+                type="text"
+                value={this.props.infodisplay.searchValue}
+                placeholder="Search for tags"
+                onChange={this.handleSearchTags.bind(this, initialShots)}
+              />
+            </FormGroup>
           </div>
           <div className="shots-list">
-            {shotsRendered}
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadFunc.bind(this)}
+              hasMore={true}
+              loader={<div className="loader">Loading ...</div>}
+            >
+              {shotsRendered}
+            </InfiniteScroll>
           </div>
         </div>
       </div>

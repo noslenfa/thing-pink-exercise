@@ -10,6 +10,7 @@ export const FETCH_SHOTS_REJECTED = 'FETCH_SHOTS_REJECTED'
 export const SHOTS_SORT_ASC = 'SHOTS_SORT_ASC'
 export const SHOTS_SORT_DESC = 'SHOTS_SORT_DESC'
 export const SHOTS_FILTER_TAGS = 'SHOTS_FILTER_TAGS'
+export const SHOTS_SEARCH_TAGS = 'SHOTS_SEARCH_TAGS'
 
 function requestShots() {
   return {
@@ -17,11 +18,12 @@ function requestShots() {
   }
 }
 
-function receiveShots(json) {
-  console.log('json ', json);
+function receiveShots(shots, numPage, initialShots) {
   return {
     type: FETCH_SHOTS_FULFILLED,
-    shots: json
+    shots,
+    initialShots,
+    numPage
   }
 }
 
@@ -36,26 +38,35 @@ function rejectShots(error) {
 function shotsSortAsc(shots) {
   return {
     type: SHOTS_SORT_ASC,
-    shots: shots
+    shots
   }
 }
 
 function shotsSortDesc(shots) {
   return {
     type: SHOTS_SORT_DESC,
-    shots: shots
+    shots
   }
 }
 
-function filterTagsShots(shots) {
+function filterTagsShots(shots, val) {
   return {
     type: SHOTS_FILTER_TAGS,
-    shots: shots
+    shots,
+    val
+  }
+}
+
+function searchTagsShots(shots, val) {
+  return {
+    type: SHOTS_SEARCH_TAGS,
+    shots,
+    val
   }
 }
 
 
-export const fetchShots = () => dispatch => {
+export const fetchShots = (numPage, initialShots) => dispatch => {
 
   // Thunk middleware knows how to handle functions.
   // It passes the dispatch method as an argument to the function,
@@ -72,7 +83,7 @@ export const fetchShots = () => dispatch => {
     // In this case, we return a promise to wait for.
     // This is not required by thunk middleware, but it is convenient for us.
 
-    return fetch(`${ENV.API.BASE}${ENV.API.SHOTS}?per_page=100`, {
+    return fetch(`${ENV.API.BASE}${ENV.API.SHOTS}?per_page=10&page=${numPage}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${ENV.DRIBBBLE_KEY}`
@@ -81,7 +92,10 @@ export const fetchShots = () => dispatch => {
     .then(res => {
       if (res.ok) {
         res.json().then(json => {
-          dispatch(receiveShots(json));
+          if (initialShots.length === 0) {
+            initialShots = json;
+          }
+          dispatch(receiveShots(json, numPage, initialShots));
         });
       }
       // TODO: review the errors in case of success
@@ -119,16 +133,35 @@ export function shotsSort(order, shots) {
 export function filterTags(tag, shots) {
 
   return function (dispatch) {
-    let filteredTagsShots = new Set();
+    let filteredTagsShots = [];
 
     shots.forEach(shot => {
       let tags = shot.tags;
       if (_.includes(tags, tag)) {
-        filteredTagsShots.add(shot);
+        filteredTagsShots.push(shot);
       }
     });
 
-    dispatch(filterTagsShots(filteredTagsShots));
+    dispatch(filterTagsShots(filteredTagsShots, tag));
   }
 
+}
+
+export function searchTags(val, shots) {
+  return function (dispatch) {
+
+    let sSearched = new Set();
+
+    _.filter(shots, shot => {
+      return _.some(shot.tags, tag => {
+        if (_.startsWith(tag, val)) {
+          sSearched.add(shot);
+        }
+      });
+    });
+
+    let searchedTagsShots = Array.from(sSearched);
+
+    dispatch(searchTagsShots(searchedTagsShots, val));
+  }
 }
