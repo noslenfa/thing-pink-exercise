@@ -42,7 +42,7 @@ class InfoDisplay extends Component {
 
   render() {
 
-    console.log(this.props);
+    console.log('props ', this.props);
 
     let items = this.props.infodisplay.items,
       isFetching = this.props.infodisplay.isFetching,
@@ -52,7 +52,7 @@ class InfoDisplay extends Component {
 
     items.forEach(item => {
       let tags = item.tags;
-
+      console.log('item ', item);
       shots.push({
         id: item.id,
         username: item.user && item.user.name || item.username,

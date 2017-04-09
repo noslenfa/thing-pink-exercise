@@ -18,15 +18,17 @@ function requestShots() {
 }
 
 function receiveShots(json) {
+  console.log('json ', json);
   return {
     type: FETCH_SHOTS_FULFILLED,
     shots: json
   }
 }
 
-function rejectShots() {
+function rejectShots(error) {
   return {
-    type: FETCH_SHOTS_REJECTED
+    type: FETCH_SHOTS_REJECTED,
+    error
   }
 }
 
@@ -53,13 +55,11 @@ function filterTagsShots(shots) {
 }
 
 
-export function fetchShots() {
+export const fetchShots = () => dispatch => {
 
   // Thunk middleware knows how to handle functions.
   // It passes the dispatch method as an argument to the function,
   // thus making it able to dispatch actions itself.
-
-  return function (dispatch) {
 
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
@@ -83,21 +83,21 @@ export function fetchShots() {
         res.json().then(json => {
           dispatch(receiveShots(json));
         });
-      } else {
-        dispatch(rejectShots());
-        /* eslint-disable no-console */
-        console.log('error', res);
-        /* eslint-enable no-console */
       }
+      // TODO: review the errors in case of success
+      // else {
+      //   dispatch(rejectShots(res));
+      //   /* eslint-disable no-console */
+      //   console.log('error', res);
+      //   /* eslint-enable no-console */
+      // }
     })
-    .catch(() => {
-      dispatch(rejectShots());
+    .catch(err => {
+      dispatch(rejectShots(err));
       /* eslint-disable no-console */
       console.log('Fail zone');
       /* eslint-enable no-console */
     })
-
-  }
 }
 
 export function shotsSort(order, shots) {

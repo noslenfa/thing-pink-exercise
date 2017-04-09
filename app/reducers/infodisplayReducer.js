@@ -7,6 +7,34 @@ import {
   SHOTS_FILTER_TAGS
 } from '../actions/infodisplayActions'
 
+/**
+ * Handle the request for fetch shots
+ * @method handleFetchShots
+ * @param {Object} state app state
+ * @return {Object}
+ */
+const handleFetchShots = (state) => ({
+  ...state,
+  isFetching: true
+});
+
+const handleSortShots = (state, action) => ({
+  ...state,
+  items: action.shots
+});
+
+const handleFetchError = (state, action) => ({
+  ...state,
+  isFetching: false,
+  error: action.error
+});
+
+const handleFetchSuccess = (state, action) => ({
+  ...state,
+  isFetching: false,
+  items: action.shots
+});
+
 export default function shots(state = {
   isFetching: false,
   isFetched: false,
@@ -15,37 +43,15 @@ export default function shots(state = {
 }, action) {
   switch (action.type) {
     case FETCH_SHOTS:
-      return {
-        ...state,
-        isFetching: true
-      }
+      return handleFetchShots(state);
     case FETCH_SHOTS_REJECTED:
-    return {
-      ...state,
-      isFetching: false,
-      error: action.shots
-    }
+      return handleFetchError(state, action);
     case FETCH_SHOTS_FULFILLED:
-      return {
-        ...state,
-        isFetching: false,
-        items: action.shots
-      }
+      return handleFetchSuccess(state, action);
     case SHOTS_SORT_ASC:
-      return {
-        ...state,
-        items: action.shots
-      }
     case SHOTS_SORT_DESC:
-      return {
-        ...state,
-        items: action.shots
-      }
     case SHOTS_FILTER_TAGS:
-      return {
-        ...state,
-        items: action.shots
-      }
+      return handleSortShots(state, action);
     default:
       return state
   }

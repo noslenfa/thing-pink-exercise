@@ -12,7 +12,8 @@ class SVGDisplay extends Component {
 
     return (
       <div>
-        SVG DISPLAY
+        <div className="svg-div-one"></div>
+        <div className="svg-div-two"></div>
       </div>
   );
   }
