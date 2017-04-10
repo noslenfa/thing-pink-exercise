@@ -102,7 +102,7 @@ class InfoDisplay extends Component {
     const initialShots = this.props.infodisplay.items;
     const isFetching = this.props.infodisplay.isFetching;
     const searchValue = this.props.infodisplay.searchValue;
-    const shotsMapped = shots.map(shot => <Shot shot={shot} shots={initialShots} key={shot.id}></Shot>);
+    const shotsMapped = shots.map(shot => <Col lg={6}><Shot shot={shot} shots={initialShots} key={shot.id}></Shot></Col>);
     let shotsRendered;
 
     if (isFetching) {
