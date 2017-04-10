@@ -9,7 +9,7 @@
   .form-group {
     margin-bottom: 5px;
   }
-  .shots-list-buttons {
+  .shots-list-inputs-area {
     color: $text;
     hr {
       margin-bottom: 5px;
@@ -22,13 +22,18 @@
         display: inline-block;
       }
     }
+    .shots-list-buttons {
+      float: right;
+    }
     button {
       margin: 10px 5px
     }
-    .shots-list-reset-button {
-      float: right;
-    }
   }
+}
+
+.shots-list-load-more {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .shots-list {

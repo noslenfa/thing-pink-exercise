@@ -3,12 +3,15 @@ require('normalize.css/normalize.css');
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import InfiniteScroll from 'react-infinite-scroller'
+//utils
+import {oauthVerification} from '../utils/oauthVerification'
+
 
 //react bootstrap
 import Button from 'react-bootstrap/lib/Button'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
+import Col from 'react-bootstrap/lib/Col'
 
 // actions
 import { fetchShots, shotsSort, searchTags, clearSearch } from '../actions/infodisplayActions'
@@ -37,6 +40,11 @@ class InfoDisplay extends Component {
 	}
 
   componentWillMount() {
+
+    if(oauthVerification()) {
+      this.context.router.replace('login')
+    }
+
     let numPage = this.props.infodisplay.numPage,
       initialShots = [];
 
@@ -56,27 +64,28 @@ class InfoDisplay extends Component {
     this.props.dispatch(searchTags(e.target.value, initialShots));
   }
 
-  loadFunc(initialShots) {
+  loadMoreShots(initialShots) {
     let numPage = this.props.infodisplay.numPage;
 
     numPage++;
 
-    // this.props.dispatch(fetchShots(numPage, initialShots));
+    this.props.dispatch(fetchShots(numPage, initialShots));
     console.log('INFINITE');
 
   }
 
   render() {
 
-    let shots = this.props.infodisplay.items,
-      initialShots = this.props.infodisplay.initialItems,
+    let shots = this.props.infodisplay.filteredItems,
+      initialShots = this.props.infodisplay.items,
       isFetching = this.props.infodisplay.isFetching,
+      searchValue = this.props.infodisplay.searchValue,
       shotsRendered;
 
     const shotsMapped = shots.map(shot => <Shot shot={shot} shots={initialShots} key={shot.id}></Shot>);
 
     if (isFetching) {
-      shotsRendered = <div className='spinning-loader'></div>
+      shotsRendered = <div>{shotsMapped}<div className='spinning-loader'></div></div>
     } else {
       if (shots.length > 0) {
         shotsRendered = shotsMapped;
@@ -88,17 +97,15 @@ class InfoDisplay extends Component {
     return (
       <div>
         <div className="container shots-list-area">
-          <div className="shots-list-buttons">
-            <div>
+          <div className="shots-list-inputs-area">
+            <div className="shots-list-buttons">
               <Button title="Sort likes ascending" bsStyle="primary" onClick={this.shotsSort.bind(this, 'asc', shots)}><i className="fa fa-sort-numeric-asc"></i></Button>
               <Button title="Sort likes descending" bsStyle="primary" onClick={this.shotsSort.bind(this, 'desc', shots)}><i className="fa fa-sort-numeric-desc"></i></Button>
-              <Button title="Reset Shots" className="shots-list-reset-button" bsStyle="primary" onClick={this.refreshShots.bind(this)}><i className="fa fa-refresh"></i></Button>
             </div>
-            <hr/>
             <FormGroup>
               <FormControl
                 type="text"
-                value={this.props.infodisplay.searchValue}
+                value={searchValue}
                 placeholder="Search for tags"
                 onChange={this.handleSearchTags.bind(this, initialShots)}
               />
@@ -106,15 +113,9 @@ class InfoDisplay extends Component {
             <hr/>
           </div>
           <div className="shots-list">
-            <InfiniteScroll
-              pageStart={0}
-              initialLoad={false}
-              loadMore={this.loadFunc.bind(this, initialShots)}
-              hasMore={true}
-            >
-              {shotsRendered}
-            </InfiniteScroll>
+            {shotsRendered}
           </div>
+            {searchValue === '' && !isFetching && <Button title="Reset Shots" className="shots-list-load-more" bsStyle="primary" onClick={this.loadMoreShots.bind(this)}>Load More ...</Button> }
         </div>
       </div>
   );

@@ -22,13 +22,13 @@ const handleFetchShots = (state, actions) => ({
 
 const handleSortShots = (state, action) => ({
   ...state,
-  items: action.shots,
+  filteredItems: action.shots,
   initialItems: action.initialShots
 });
 
 const handleSearchShots = (state, action) => ({
   ...state,
-  items: action.shots,
+  filteredItems: action.shots,
   searchValue: action.val
 });
 
@@ -43,19 +43,9 @@ const handleFetchError = (state, action) => ({
   error: action.error
 });
 
-const handleFetchSuccess = (state, action) => ({
-  ...state,
-  isFetching: false,
-  items: action.shots.map(item => ({
-    id: item.id,
-    username: item.user && item.user.name || item.username,
-    title: item.title,
-    avatarUrl: item.user && item.user.avatar_url || item.avatarUrl,
-    imageUrl: item.images && item.images.teaser || item.imageUrl,
-    likesCount: item.likes_count || item.likesCount,
-    tags: item.tags
-  })),
-  initialItems: action.shots.map(item => ({
+const handleFetchSuccess = (state, action) => {
+
+  const shots = action.shots.map(item => ({
     id: item.id,
     username: item.user && item.user.name || item.username,
     title: item.title,
@@ -64,15 +54,22 @@ const handleFetchSuccess = (state, action) => ({
     likesCount: item.likes_count || item.likesCount,
     tags: item.tags
   }))
-});
+
+  return {
+    ...state,
+    isFetching: false,
+    numPage: action.numPage,
+    items: [...state.items, ...shots],
+    filteredItems: [...state.filteredItems, ...shots]
+  }
+};
 
 export default function shots(state = {
   numPage: 1,
   isFetching: false,
-  isFetched: false,
   error: null,
   items: [],
-  initialItems: [],
+  filteredItems: [],
   searchValue: ''
 }, action) {
   switch (action.type) {

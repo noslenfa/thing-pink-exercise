@@ -1,12 +1,21 @@
-require('normalize.css/normalize.css');
+require('normalize.css/normalize.css')
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+
+//utils
+import {oauthVerification} from '../utils/oauthVerification'
 
 class SVGDisplay extends Component {
   constructor(props, context){
 		super(props);
     context.router;
 	}
+
+  componentWillMount() {
+    if(oauthVerification()) {
+      this.context.router.replace('login')
+    }
+  }
 
   render() {
 
