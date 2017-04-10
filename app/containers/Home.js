@@ -8,6 +8,10 @@ import {Link} from 'react-router'
 //utils
 import {oauthVerification} from '../utils/oauthVerification'
 
+// components
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+
 /**
  * Class Home
  * @extends Component
@@ -38,7 +42,9 @@ class Home extends Component {
   render() {
 
     return (
-      <div className="container login-area">
+      <div>
+        <Header></Header>
+        <div className="container login-area">
           <div className="text-center">
             <div>
               <Link to="/svgdisplay">Go SVG Display</Link>
@@ -47,7 +53,10 @@ class Home extends Component {
               <Link to="/infodisplay">Go Info Display</Link>
             </div>
           </div>
+        </div>
+        <Footer></Footer>
       </div>
+
     );
   }
 }

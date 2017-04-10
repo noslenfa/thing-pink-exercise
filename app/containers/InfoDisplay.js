@@ -13,10 +13,12 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 import Col from 'react-bootstrap/lib/Col'
 
 // actions
-import { fetchShots, shotsSort, searchTags, clearSearch } from '../actions/infodisplayActions'
+import { fetchShots, shotsSort, searchTags } from '../actions/infodisplayActions'
 
 // components
 import Shot from '../components/Shot'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 /**
  * Map state to props
@@ -102,7 +104,7 @@ class InfoDisplay extends Component {
     const initialShots = this.props.infodisplay.items;
     const isFetching = this.props.infodisplay.isFetching;
     const searchValue = this.props.infodisplay.searchValue;
-    const shotsMapped = shots.map(shot => <Col lg={6}><Shot shot={shot} shots={initialShots} key={shot.id}></Shot></Col>);
+    const shotsMapped = shots.map(shot => <Col lg={6} key={shot.id}><Shot shot={shot} shots={initialShots}></Shot></Col>);
     let shotsRendered;
 
     if (isFetching) {
@@ -117,6 +119,7 @@ class InfoDisplay extends Component {
 
     return (
       <div>
+        <Header></Header>
         <div className="container shots-list-area">
           <div className="shots-list-inputs-area">
             <div className="shots-list-buttons">
@@ -136,8 +139,9 @@ class InfoDisplay extends Component {
           <div className="shots-list">
             {shotsRendered}
           </div>
-            {searchValue === '' && !isFetching && <Button title="Reset Shots" className="shots-list-load-more" bsStyle="primary" onClick={this.loadMoreShots.bind(this)}>Load More ...</Button> }
+            {searchValue === '' && !isFetching && <Button title="LOAD MORE SHOTS" className="shots-list-load-more" bsStyle="primary" onClick={this.loadMoreShots.bind(this)}>LOAD MORE SHOTS...</Button> }
         </div>
+        <Footer></Footer>
       </div>
   );
   }

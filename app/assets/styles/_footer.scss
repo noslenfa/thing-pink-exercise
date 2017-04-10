@@ -1,0 +1,21 @@
+//footer scss file
+
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  background-color: $grey-ligther;
+  width: 100%;
+  z-index: 16;
+  box-shadow: 0px -2px 5px $box-shadow-footer;
+}
+
+.footer-text {
+  text-align: center;
+  height: 52px;
+  line-height: 52px;
+  font-size: 11px;
+  a {
+    color: $black;
+    font-weight: bold;
+  }
+}

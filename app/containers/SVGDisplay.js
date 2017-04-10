@@ -5,6 +5,10 @@ import React, { Component } from 'react'
 //utils
 import {oauthVerification} from '../utils/oauthVerification'
 
+// components
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+
 /**
  * Class SVGDisplay
  * @extends Component
@@ -36,10 +40,12 @@ class SVGDisplay extends Component {
 
     return (
       <div>
+        <Header></Header>
         <div className="svg-div-one"></div>
         <div className="svg-div-two"></div>
+        <Footer></Footer>
       </div>
-  );
+    );
   }
 }
 
