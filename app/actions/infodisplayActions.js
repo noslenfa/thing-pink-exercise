@@ -13,12 +13,27 @@ export const SHOTS_FILTER_TAGS = 'SHOTS_FILTER_TAGS'
 export const SHOTS_SEARCH_TAGS = 'SHOTS_SEARCH_TAGS'
 export const CLEAR_SEARCH = 'CLEAR_SEARCH'
 
+/**
+ * Request shots action method
+ *
+ * @method requestShots
+ * @return {Object}
+ */
 function requestShots() {
   return {
     type: FETCH_SHOTS
   }
 }
 
+/**
+ * Request shots action method
+ *
+ * @method requestShots
+ * @param {Object} shots
+ * @param {number} numPage
+ * @param {Array} initialShots
+ * @return {Object}
+ */
 function receiveShots(shots, numPage, initialShots) {
   return {
     type: FETCH_SHOTS_FULFILLED,
@@ -28,6 +43,15 @@ function receiveShots(shots, numPage, initialShots) {
   }
 }
 
+/**
+ * Request shots action
+ *
+ * @method requestShots
+ * @param {Object} shots
+ * @param {number} numPage
+ * @param {Array} initialShots
+ * @return {Object}
+ */
 function rejectShots(error) {
   return {
     type: FETCH_SHOTS_REJECTED,
@@ -35,7 +59,14 @@ function rejectShots(error) {
   }
 }
 
-
+/**
+ * Sort shots ascending action
+ *
+ * @method shotsSortAsc
+ * @param  {Object} shots
+ * @param  {Array} initialShots
+ * @return {Object}
+ */
 function shotsSortAsc(shots, initialShots) {
   return {
     type: SHOTS_SORT_ASC,
@@ -44,6 +75,14 @@ function shotsSortAsc(shots, initialShots) {
   }
 }
 
+/**
+ * Sort shots descending action
+ *
+ * @method shotsSortDesc
+ * @param  {Object} shots
+ * @param  {Array} initialShots
+ * @return {Object}
+ */
 function shotsSortDesc(shots, initialShots) {
   return {
     type: SHOTS_SORT_DESC,
@@ -52,6 +91,14 @@ function shotsSortDesc(shots, initialShots) {
   }
 }
 
+/**
+ * Filter shots by tag value action
+ *
+ * @method filterTagsShots
+ * @param  {Object} shots
+ * @param  {string} val
+ * @return {Object}
+ */
 function filterTagsShots(shots, val) {
   return {
     type: SHOTS_FILTER_TAGS,
@@ -60,6 +107,14 @@ function filterTagsShots(shots, val) {
   }
 }
 
+/**
+ * Filter shots by input value action
+ *
+ * @method searchTagsShots
+ * @param  {Object} shots
+ * @param  {string} val
+ * @return {Object}
+ */
 function searchTagsShots(shots, val) {
   return {
     type: SHOTS_SEARCH_TAGS,
@@ -68,12 +123,26 @@ function searchTagsShots(shots, val) {
   }
 }
 
+/**
+ * Clear search input value action
+ *
+ * @method searchTagsShots
+ * @return {Object}
+ */
 function clearSearchValue() {
   return {
     type: CLEAR_SEARCH
   }
 }
 
+/**
+ * Fetch shots request
+ *
+ * @method fetchShots
+ * @param {number} numPage
+ * @param {Array} initialShots
+ * @return {Object}
+ */
 export const fetchShots = (numPage, initialShots) => dispatch => {
 
   // Thunk middleware knows how to handle functions.
@@ -122,7 +191,15 @@ export const fetchShots = (numPage, initialShots) => dispatch => {
     })
 }
 
-export function shotsSort(order, shots, initialShots) {
+/**
+ * Shots sort action
+ *
+ * @method shotsSort
+ * @param {string} order
+ * @param {Array} shots
+ * @return {Function}
+ */
+export function shotsSort(order, shots) {
 
   return function (dispatch) {
     let orderedShots,
@@ -141,13 +218,21 @@ export function shotsSort(order, shots, initialShots) {
 
 }
 
+/**
+ * Shots sort action
+ *
+ * @method filterTags
+ * @param {string} tag
+ * @param {Array} shots
+ * @return {Function}
+ */
 export function filterTags(tag, shots) {
 
   return function (dispatch) {
     let filteredTagsShots = [];
 
     shots.forEach(shot => {
-      let tags = shot.tags;
+      const tags = shot.tags;
       if (_.includes(tags, tag)) {
         filteredTagsShots.push(shot);
       }
@@ -158,6 +243,14 @@ export function filterTags(tag, shots) {
 
 }
 
+/**
+ * Shots search by tag action
+ *
+ * @method searchTags
+ * @param {string} val
+ * @param {Array} shots
+ * @return {Function}
+ */
 export function searchTags(val, shots) {
 
   return function (dispatch) {
@@ -182,10 +275,16 @@ export function searchTags(val, shots) {
   }
 }
 
+/**
+ * Shots clear search input action
+ *
+ * @method clearSearch
+ * @return {Function}
+ */
 export function clearSearch() {
 
   return function(dispatch) {
     dispatch(clearSearchValue());
   }
-  
+
 }

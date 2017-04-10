@@ -1,17 +1,34 @@
-require('normalize.css/normalize.css');
+require('normalize.css/normalize.css')
 
-import React, { Component } from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react'
+
+//router
+import {Link} from 'react-router'
 
 //utils
 import {oauthVerification} from '../utils/oauthVerification'
 
+/**
+ * Class Home
+ * @extends Component
+ */
 class Home extends Component {
+
+  /**
+   * Constructor
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context){
 		super(props);
     context.router;
 	}
 
+  /**
+   * Component will mount
+   *
+   * @method componentWillMount
+   */
   componentWillMount() {
     if(oauthVerification()) {
       this.context.router.replace('login')
@@ -31,7 +48,7 @@ class Home extends Component {
             </div>
           </div>
       </div>
-  );
+    );
   }
 }
 

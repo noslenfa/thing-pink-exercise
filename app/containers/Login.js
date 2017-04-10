@@ -1,29 +1,48 @@
 /*global ENV:true*/
 /*eslint no-undef: "error"*/
+require('normalize.css/normalize.css')
 
-require('normalize.css/normalize.css');
-
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 //oauth used for authentication
-import {OAuth} from 'oauthio-web';
+import {OAuth} from 'oauthio-web'
 
 //react bootstrap
-import Button from 'react-bootstrap/lib/Button';
+import Button from 'react-bootstrap/lib/Button'
 
+/**
+ * Class Login
+ * @extends Component
+ */
 class Login extends Component {
+
+  /**
+   * Constructor
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context){
 		super(props);
     context.router;
 	}
 
+  /**
+   * Component will mount
+   *
+   * @method componentWillMount
+   */
   componentWillMount() {
     OAuth.clearCache();
     OAuth.initialize(ENV.OAUTH_IO_KEY, {cache:true});
   }
 
+  /**
+   * Execute authentication
+   *
+   * @method executeOAuth
+   * @param {string} provider
+   */
   executeOAuth(provider) {
-    console.log(provider);
 
     OAuth.popup(provider)
     .done(result => {
@@ -60,7 +79,7 @@ class Login extends Component {
           </div>
         </div>
       </div>
-  );
+    );
   }
 }
 

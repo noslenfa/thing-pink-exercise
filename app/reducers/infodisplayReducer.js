@@ -11,38 +11,36 @@ import {
 
 /**
  * Handle the request for fetch shots
+ *
  * @method handleFetchShots
  * @param {Object} state app state
  * @return {Object}
  */
-const handleFetchShots = (state, actions) => ({
+const handleFetchShots = (state) => ({
   ...state,
   isFetching: true
 });
 
-const handleSortShots = (state, action) => ({
-  ...state,
-  filteredItems: action.shots,
-  initialItems: action.initialShots
-});
-
-const handleSearchShots = (state, action) => ({
-  ...state,
-  filteredItems: action.shots,
-  searchValue: action.val
-});
-
-const handleClearSearch = (state, action) => ({
-  ...state,
-  searchValue: ''
-});
-
+/**
+ * Handle fetch request errors
+ *
+ * @method handleFetchError
+ * @param {Object} state app state
+ * @return {Object}
+ */
 const handleFetchError = (state, action) => ({
   ...state,
   isFetching: false,
   error: action.error
 });
 
+/**
+ * Handle fetch request success
+ *
+ * @method handleFetchError
+ * @param {Object} state app state
+ * @return {Object}
+ */
 const handleFetchSuccess = (state, action) => {
 
   const shots = action.shots.map(item => ({
@@ -64,6 +62,51 @@ const handleFetchSuccess = (state, action) => {
   }
 };
 
+/**
+ * Handle shots sort based on order (asc, desc)
+ *
+ * @method handleSortShots
+ * @param {Object} state app state
+ * @return {Object}
+ */
+const handleSortShots = (state, action) => ({
+  ...state,
+  filteredItems: action.shots,
+  initialItems: action.initialShots
+});
+
+/**
+ * Handle shots search
+ *
+ * @method handleSearchShots
+ * @param {Object} state app state
+ * @return {Object}
+ */
+const handleSearchShots = (state, action) => ({
+  ...state,
+  filteredItems: action.shots,
+  searchValue: action.val
+});
+
+/**
+ * Clear search input
+ *
+ * @method handleClearSearch
+ * @param {Object} state app state
+ * @return {Object}
+ */
+const handleClearSearch = (state) => ({
+  ...state,
+  searchValue: ''
+});
+
+/**
+ * Select correct handle based on type
+ *
+ * @method shots
+ * @param {Object} state app state
+ * @return {Object}
+ */
 export default function shots(state = {
   numPage: 1,
   isFetching: false,

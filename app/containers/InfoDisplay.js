@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 //utils
 import {oauthVerification} from '../utils/oauthVerification'
 
-
 //react bootstrap
 import Button from 'react-bootstrap/lib/Button'
 import FormGroup from 'react-bootstrap/lib/FormGroup'
@@ -19,70 +18,92 @@ import { fetchShots, shotsSort, searchTags, clearSearch } from '../actions/infod
 // components
 import Shot from '../components/Shot'
 
+/**
+ * Map state to props
+ *
+ * @method mapStateToProps
+ * @param {Object} state
+ * @return {Object}
+ */
 const mapStateToProps = (state) => {
   return state;
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         delete: (data) => {
-//             return removeSession(dispatch, data);
-//         },
-//         dispatch: dispatch
-//     };
-// };
-
+/**
+ * Class InfoDisplay
+ * @extends Component
+ */
 class InfoDisplay extends Component {
 
+  /**
+   * Constructor
+   * @param {Object} props
+   * @param {Object} context
+   */
   constructor(props, context){
 		super(props);
     context.router;
 	}
 
+  /**
+   * Component will mount
+   *
+   * @method componentWillMount
+   */
   componentWillMount() {
 
     if(oauthVerification()) {
       this.context.router.replace('login')
     }
 
-    let numPage = this.props.infodisplay.numPage,
-      initialShots = [];
+    const numPage = this.props.infodisplay.numPage;
+    const initialShots = [];
 
     this.props.dispatch(fetchShots(numPage, initialShots));
   }
 
-  refreshShots() {
-    this.props.dispatch(clearSearch());
-    this.props.dispatch(fetchShots(1, []));
-  }
-
+  /**
+   * Refresh shots
+   *
+   * @method shotsSort
+   */
   shotsSort(order, shots) {
     this.props.dispatch(shotsSort(order, shots));
   }
 
+  /**
+   * Handle search tags
+   *
+   * @method handleSearchTags
+   * @param {Array} initialShots
+   * @param {Object} e
+   */
   handleSearchTags(initialShots, e) {
     this.props.dispatch(searchTags(e.target.value, initialShots));
   }
 
+  /**
+   * Load more shots
+   *
+   * @method loadMoreShots
+   * @param {Array} initialShots
+   */
   loadMoreShots(initialShots) {
     let numPage = this.props.infodisplay.numPage;
 
     numPage++;
 
     this.props.dispatch(fetchShots(numPage, initialShots));
-    console.log('INFINITE');
-
   }
 
   render() {
 
-    let shots = this.props.infodisplay.filteredItems,
-      initialShots = this.props.infodisplay.items,
-      isFetching = this.props.infodisplay.isFetching,
-      searchValue = this.props.infodisplay.searchValue,
-      shotsRendered;
-
+    const shots = this.props.infodisplay.filteredItems;
+    const initialShots = this.props.infodisplay.items;
+    const isFetching = this.props.infodisplay.isFetching;
+    const searchValue = this.props.infodisplay.searchValue;
     const shotsMapped = shots.map(shot => <Shot shot={shot} shots={initialShots} key={shot.id}></Shot>);
+    let shotsRendered;
 
     if (isFetching) {
       shotsRendered = <div>{shotsMapped}<div className='spinning-loader'></div></div>

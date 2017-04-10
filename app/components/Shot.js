@@ -1,6 +1,6 @@
 require('normalize.css/normalize.css')
 
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 //react bootstrap
@@ -12,16 +12,39 @@ import Col from 'react-bootstrap/lib/Col'
 // actions
 import { filterTags } from '../actions/infodisplayActions'
 
+/**
+ * Map state to props
+ *
+ * @method mapStateToProps
+ * @param {Object} state
+ * @return {Object}
+ */
 const mapStateToProps = (state) => {
   return state;
 }
 
+/**
+ * Class Shot
+ * @extends Component
+ */
 class Shot extends Component {
 
+  /**
+   * Constructor
+   * @param {Object} props
+   */
   constructor(props) {
     super(props);
   }
 
+  /**
+   * Request shots action method
+   *
+   * @method filterTags
+   * @param {string} tag
+   * @param {Array} shots
+   * @return {Object}
+   */
   filterTags(tag, shots) {
     this.props.dispatch(filterTags(tag, shots));
   }

@@ -1,3 +1,10 @@
+
+/**
+ * oAuth verification
+ *
+ * @method oauthVerification
+ * @return {boolean}
+ */
 export const oauthVerification = () => {
   if(localStorage.getItem('oauthio_cache')) {
     return false;

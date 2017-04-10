@@ -4,7 +4,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
+//containers
 import App from './containers/App'
+
+//store
 import store from './store/store'
 
 const app = document.getElementById('app');

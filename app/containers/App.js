@@ -1,5 +1,8 @@
-import React from 'react'
+require('normalize.css/normalize.css')
 
+import React, { Component } from 'react'
+
+//router
 import Router from 'react-router/lib/Router'
 import Route from 'react-router/lib/Route'
 import IndexRedirect from 'react-router/lib/IndexRedirect'
@@ -11,9 +14,14 @@ import Home from './Home'
 import InfoDisplay from './InfoDisplay'
 import SVGDisplay from './SVGDisplay'
 
-class App extends React.Component {
+/**
+ * Class App
+ * @extends Component
+ */
+class App extends Component {
 
   render() {
+
     return (
       <Router history={browserHistory}>
         <Route path={'/'} handler={App}>
