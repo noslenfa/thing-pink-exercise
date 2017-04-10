@@ -52,9 +52,9 @@ class Shot extends Component {
             <img src={shot.avatarUrl}/>
           </Col>
           <Col className="shots-list-text" xs={8}>
-            <div><span>NAME: </span>{shot.username}</div>
-            <div><span>TITLE: </span>{shot.title}</div>
-            <div><span>LIKES: </span>{shot.likesCount}</div>
+            <div><span><i className="fa fa-user-circle"></i></span>{shot.username}</div>
+            <div><span><i className="fa fa-pencil"></i></span>{shot.title}</div>
+            <div><span><i className="fa fa-heart"></i></span>{shot.likesCount}</div>
           </Col>
         </Row>
         <hr />

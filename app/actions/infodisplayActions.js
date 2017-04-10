@@ -11,6 +11,7 @@ export const SHOTS_SORT_ASC = 'SHOTS_SORT_ASC'
 export const SHOTS_SORT_DESC = 'SHOTS_SORT_DESC'
 export const SHOTS_FILTER_TAGS = 'SHOTS_FILTER_TAGS'
 export const SHOTS_SEARCH_TAGS = 'SHOTS_SEARCH_TAGS'
+export const CLEAR_SEARCH = 'CLEAR_SEARCH'
 
 function requestShots() {
   return {
@@ -35,17 +36,19 @@ function rejectShots(error) {
 }
 
 
-function shotsSortAsc(shots) {
+function shotsSortAsc(shots, initialShots) {
   return {
     type: SHOTS_SORT_ASC,
-    shots
+    shots,
+    initialShots
   }
 }
 
-function shotsSortDesc(shots) {
+function shotsSortDesc(shots, initialShots) {
   return {
     type: SHOTS_SORT_DESC,
-    shots
+    shots,
+    initialShots
   }
 }
 
@@ -65,6 +68,11 @@ function searchTagsShots(shots, val) {
   }
 }
 
+function clearSearchValue() {
+  return {
+    type: CLEAR_SEARCH
+  }
+}
 
 export const fetchShots = (numPage, initialShots) => dispatch => {
 
@@ -114,17 +122,20 @@ export const fetchShots = (numPage, initialShots) => dispatch => {
     })
 }
 
-export function shotsSort(order, shots) {
+export function shotsSort(order, shots, initialShots) {
 
   return function (dispatch) {
-    let orderedShots;
+    let orderedShots,
+      orderedInitialShots;
 
     if (order === 'asc') {
       orderedShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
-      dispatch(shotsSortAsc(orderedShots));
+      orderedInitialShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
+      dispatch(shotsSortAsc(orderedShots, orderedInitialShots));
     } else if (order === 'desc') {
       orderedShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
-      dispatch(shotsSortDesc(orderedShots));
+      orderedInitialShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
+      dispatch(shotsSortDesc(orderedShots, orderedInitialShots));
     }
   }
 
@@ -148,20 +159,33 @@ export function filterTags(tag, shots) {
 }
 
 export function searchTags(val, shots) {
+
   return function (dispatch) {
+    let searchedTagsShots;
+    if (val === '') {
+      searchedTagsShots = shots;
+    } else {
+      let sSearched = new Set();
 
-    let sSearched = new Set();
-
-    _.filter(shots, shot => {
-      return _.some(shot.tags, tag => {
-        if (_.startsWith(tag, val)) {
-          sSearched.add(shot);
-        }
+      _.filter(shots, shot => {
+        return _.some(shot.tags, tag => {
+          if (_.startsWith(tag, val)) {
+            sSearched.add(shot);
+          }
+        });
       });
-    });
 
-    let searchedTagsShots = Array.from(sSearched);
+      searchedTagsShots = Array.from(sSearched);
+    }
 
     dispatch(searchTagsShots(searchedTagsShots, val));
   }
+}
+
+export function clearSearch() {
+
+  return function(dispatch) {
+    dispatch(clearSearchValue());
+  }
+  
 }

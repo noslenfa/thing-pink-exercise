@@ -5,7 +5,8 @@ import {
   SHOTS_SORT_ASC,
   SHOTS_SORT_DESC,
   SHOTS_FILTER_TAGS,
-  SHOTS_SEARCH_TAGS
+  SHOTS_SEARCH_TAGS,
+  CLEAR_SEARCH
 } from '../actions/infodisplayActions'
 
 /**
@@ -21,13 +22,19 @@ const handleFetchShots = (state, actions) => ({
 
 const handleSortShots = (state, action) => ({
   ...state,
-  items: action.shots
+  items: action.shots,
+  initialItems: action.initialShots
 });
 
 const handleSearchShots = (state, action) => ({
   ...state,
   items: action.shots,
   searchValue: action.val
+});
+
+const handleClearSearch = (state, action) => ({
+  ...state,
+  searchValue: ''
 });
 
 const handleFetchError = (state, action) => ({
@@ -81,6 +88,8 @@ export default function shots(state = {
     case SHOTS_FILTER_TAGS:
     case SHOTS_SEARCH_TAGS:
       return handleSearchShots(state, action);
+    case CLEAR_SEARCH:
+      return handleClearSearch(state, action);
     default:
       return state
   }

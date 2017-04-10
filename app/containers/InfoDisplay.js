@@ -11,7 +11,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup'
 import FormControl from 'react-bootstrap/lib/FormControl'
 
 // actions
-import { fetchShots, shotsSort, searchTags } from '../actions/infodisplayActions'
+import { fetchShots, shotsSort, searchTags, clearSearch } from '../actions/infodisplayActions'
 
 // components
 import Shot from '../components/Shot'
@@ -43,6 +43,11 @@ class InfoDisplay extends Component {
     this.props.dispatch(fetchShots(numPage, initialShots));
   }
 
+  refreshShots() {
+    this.props.dispatch(clearSearch());
+    this.props.dispatch(fetchShots(1, []));
+  }
+
   shotsSort(order, shots) {
     this.props.dispatch(shotsSort(order, shots));
   }
@@ -51,12 +56,12 @@ class InfoDisplay extends Component {
     this.props.dispatch(searchTags(e.target.value, initialShots));
   }
 
-  loadFunc() {
+  loadFunc(initialShots) {
     let numPage = this.props.infodisplay.numPage;
 
     numPage++;
 
-    // this.props.dispatch(fetchShots(numPage));
+    // this.props.dispatch(fetchShots(numPage, initialShots));
     console.log('INFINITE');
 
   }
@@ -73,15 +78,23 @@ class InfoDisplay extends Component {
     if (isFetching) {
       shotsRendered = <div className='spinning-loader'></div>
     } else {
-      shotsRendered = shotsMapped;
+      if (shots.length > 0) {
+        shotsRendered = shotsMapped;
+      } else {
+        shotsRendered = <div className="text-center">THERE ARE NO SHOTS TO PRESENT</div>
+      }
     }
 
     return (
       <div>
         <div className="container shots-list-area">
-          <div className="shots-list-buttons text-center">
-            <Button bsStyle="primary" onClick={this.shotsSort.bind(this, 'asc', shots)}>ASCENDING</Button>
-            <Button bsStyle="primary" onClick={this.shotsSort.bind(this, 'desc', shots)}>DESCENDING</Button>
+          <div className="shots-list-buttons">
+            <div>
+              <Button title="Sort likes ascending" bsStyle="primary" onClick={this.shotsSort.bind(this, 'asc', shots)}><i className="fa fa-sort-numeric-asc"></i></Button>
+              <Button title="Sort likes descending" bsStyle="primary" onClick={this.shotsSort.bind(this, 'desc', shots)}><i className="fa fa-sort-numeric-desc"></i></Button>
+              <Button title="Reset Shots" className="shots-list-reset-button" bsStyle="primary" onClick={this.refreshShots.bind(this)}><i className="fa fa-refresh"></i></Button>
+            </div>
+            <hr/>
             <FormGroup>
               <FormControl
                 type="text"
@@ -90,13 +103,14 @@ class InfoDisplay extends Component {
                 onChange={this.handleSearchTags.bind(this, initialShots)}
               />
             </FormGroup>
+            <hr/>
           </div>
           <div className="shots-list">
             <InfiniteScroll
               pageStart={0}
-              loadMore={this.loadFunc.bind(this)}
+              initialLoad={false}
+              loadMore={this.loadFunc.bind(this, initialShots)}
               hasMore={true}
-              loader={<div className="loader">Loading ...</div>}
             >
               {shotsRendered}
             </InfiniteScroll>
