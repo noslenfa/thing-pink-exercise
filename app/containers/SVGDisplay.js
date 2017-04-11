@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/lib/Col'
 import {oauthVerification} from '../utils/oauthVerification'
 
 // actions
-import { changeStrokeColor, changeFillColor } from '../actions/svgDisplayActions'
+import { changeStrokeColor, changeFillColor, handleMenu } from '../actions/svgDisplayActions'
 
 // components
 import Header from '../components/Header'
@@ -72,6 +72,35 @@ class SVGDisplay extends Component {
     this.props.dispatch(changeFillColor(svgColor));
   }
 
+  /**
+   * Handle menus open and close
+   *
+   * @method handleMenu
+   */
+  handleMenu(menu) {
+    const leftMenuOpen = this.props.svgDisplay.leftMenuOpen;
+    const rightMenuOpen = this.props.svgDisplay.rightMenuOpen;
+
+    if (menu === 'left') {
+      if (leftMenuOpen) {
+        document.getElementById('svg-menu-left').style.left = '-50px';
+        document.getElementById('open-close-left-menu').style.left = '-25px';
+      } else {
+        document.getElementById('svg-menu-left').style.left = '0';
+        document.getElementById('open-close-left-menu').style.left = '25px';
+      }
+    } else if (menu === 'right') {
+      if (rightMenuOpen) {
+        document.getElementById('svg-menu-right').style.right = '-50px';
+        document.getElementById('open-close-right-menu').style.right = '-25px';
+      } else {
+        document.getElementById('svg-menu-right').style.right = '0';
+        document.getElementById('open-close-right-menu').style.right = '25px';
+      }
+    }
+    this.props.dispatch(handleMenu(menu));
+
+  }
 
   /**
    * SVG to be displayed
@@ -122,20 +151,22 @@ class SVGDisplay extends Component {
             {this.svgToDisplay()}
           </div>
         </Col>
-        <Col className="svg-colors-drop" xs={12}>
-          <div className="svg-white" onClick={this.handleStrokeChangeColor.bind(this, 'white')}><i className="fa fa-tint"></i></div>
-          <div className="svg-red" onClick={this.handleStrokeChangeColor.bind(this, 'red')}><i className="fa fa-tint"></i></div>
-          <div className="svg-blue" onClick={this.handleStrokeChangeColor.bind(this, 'blue')}><i className="fa fa-tint"></i></div>
-          <div className="svg-green" onClick={this.handleStrokeChangeColor.bind(this, 'green')}><i className="fa fa-tint"></i></div>
-          <div className="svg-yellow" onClick={this.handleStrokeChangeColor.bind(this, 'yellow')}><i className="fa fa-tint"></i></div>
-        </Col>
-        <Col className="svg-colors-paint" xs={12}>
-          <div className="svg-white" onClick={this.handleFillChangeColor.bind(this, 'white')}><i className="fa fa-paint-brush"></i></div>
-          <div className="svg-red" onClick={this.handleFillChangeColor.bind(this, 'red')}><i className="fa fa-paint-brush"></i></div>
-          <div className="svg-blue" onClick={this.handleFillChangeColor.bind(this, 'blue')}><i className="fa fa-paint-brush"></i></div>
-          <div className="svg-green" onClick={this.handleFillChangeColor.bind(this, 'green')}><i className="fa fa-paint-brush"></i></div>
-          <div className="svg-yellow" onClick={this.handleFillChangeColor.bind(this, 'yellow')}><i className="fa fa-paint-brush"></i></div>
-        </Col>
+        <div id="svg-menu-left">
+          <div className="svg-white" onClick={this.handleFillChangeColor.bind(this, 'white')}></div>
+          <div className="svg-red" onClick={this.handleFillChangeColor.bind(this, 'red')}></div>
+          <div className="svg-blue" onClick={this.handleFillChangeColor.bind(this, 'blue')}></div>
+          <div className="svg-green" onClick={this.handleFillChangeColor.bind(this, 'green')}></div>
+          <div className="svg-yellow" onClick={this.handleFillChangeColor.bind(this, 'yellow')}></div>
+        </div>
+        <div id="svg-menu-right">
+          <div className="svg-white" onClick={this.handleStrokeChangeColor.bind(this, 'white')}></div>
+          <div className="svg-red" onClick={this.handleStrokeChangeColor.bind(this, 'red')}></div>
+          <div className="svg-blue" onClick={this.handleStrokeChangeColor.bind(this, 'blue')}></div>
+          <div className="svg-green" onClick={this.handleStrokeChangeColor.bind(this, 'green')}></div>
+          <div className="svg-yellow" onClick={this.handleStrokeChangeColor.bind(this, 'yellow')}></div>
+        </div>
+        <div id="open-close-left-menu" onClick={this.handleMenu.bind(this, 'left')}><i className="fa fa-paint-brush"></i></div>
+        <div id="open-close-right-menu" onClick={this.handleMenu.bind(this, 'right')}><i className="fa fa-tint"></i></div>
         <Footer></Footer>
       </div>
     );

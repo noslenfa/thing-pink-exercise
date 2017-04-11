@@ -1,6 +1,8 @@
 import {
   CHANGE_SVG_STROKE_COLOR,
-  CHANGE_SVG_FILL_COLOR
+  CHANGE_SVG_FILL_COLOR,
+  HANDLE_LEFT_MENU,
+  HANDLE_RIGHT_MENU
 } from '../actions/svgDisplayActions'
 
 /**
@@ -30,6 +32,33 @@ const handleChangeFillColor = (state, action) => ({
 });
 
 /**
+ * Handle left menu open/close
+ *
+ * @method handleLeftMenu
+ * @param {Object} state app state
+ * @param {Object} action action
+ * @return {Object}
+ */
+const handleLeftMenu = (state, action) => ({
+  ...state,
+  leftMenuOpen: !state.leftMenuOpen
+});
+
+
+/**
+ * Handle right menu open/close
+ *
+ * @method handleRightMenu
+ * @param {Object} state app state
+ * @param {Object} action action
+ * @return {Object}
+ */
+const handleRightMenu = (state, action) => ({
+  ...state,
+  rightMenuOpen: !state.rightMenuOpen
+});
+
+/**
  * Select correct handle based on type
  *
  * @method shots
@@ -38,13 +67,19 @@ const handleChangeFillColor = (state, action) => ({
  */
 export default function shots(state = {
   svgStrokeColor: 'white',
-  svgFillColor: 'transparent'
+  svgFillColor: 'transparent',
+  leftMenuOpen: false,
+  rightMenuOpen: false
 }, action) {
   switch (action.type) {
     case CHANGE_SVG_STROKE_COLOR:
       return handleChangeStrokeColor(state, action);
     case CHANGE_SVG_FILL_COLOR:
       return handleChangeFillColor(state, action);
+    case HANDLE_LEFT_MENU:
+      return handleLeftMenu(state, action);
+    case HANDLE_RIGHT_MENU:
+      return handleRightMenu(state, action);
     default:
       return state
   }
