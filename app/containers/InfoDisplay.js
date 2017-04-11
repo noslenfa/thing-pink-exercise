@@ -122,6 +122,7 @@ class InfoDisplay extends Component {
         <Header></Header>
         <div className="container shots-list-area">
           <div className="shots-list-inputs-area">
+            <div>Sort or Search for Shots</div>
             <div className="shots-list-buttons">
               <Button title="Sort likes ascending" bsStyle="primary" onClick={this.shotsSort.bind(this, 'asc', shots)}><i className="fa fa-sort-numeric-asc"></i></Button>
               <Button title="Sort likes descending" bsStyle="primary" onClick={this.shotsSort.bind(this, 'desc', shots)}><i className="fa fa-sort-numeric-desc"></i></Button>
@@ -133,6 +134,7 @@ class InfoDisplay extends Component {
                 placeholder="Search for tags"
                 onChange={this.handleSearchTags.bind(this, initialShots)}
               />
+              <i className="fa fa-search"></i>
             </FormGroup>
             <hr/>
           </div>

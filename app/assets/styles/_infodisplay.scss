@@ -19,9 +19,9 @@
     div:first-child {
       font-weight: bold;
       margin-top: 10px;
-      div {
-        display: inline-block;
-      }
+      position: relative;
+      width: 80%;
+      top: 40px;
     }
     .shots-list-buttons {
       float: right;
@@ -34,6 +34,18 @@
     margin-top: 10px;
   }
 }
+
+
+  .form-group {
+    i {
+      position: relative;
+      top: -25px;
+      right: 15px;
+      float: right;
+    }
+
+  }
+
 
 .shots-list-load-more {
   width: 100%;

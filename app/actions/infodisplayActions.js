@@ -188,13 +188,6 @@ export const fetchShots = (numPage, initialShots) => dispatch => {
           dispatch(receiveShots(json, numPage, initialShots));
         });
       }
-      // TODO: review the errors in case of success
-      // else {
-      //   dispatch(rejectShots(res));
-      //   /* eslint-disable no-console */
-      //   console.log('error', res);
-      //   /* eslint-enable no-console */
-      // }
     })
     .catch(err => {
       dispatch(rejectShots(err));
