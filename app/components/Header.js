@@ -1,6 +1,7 @@
 require('normalize.css/normalize.css');
 
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 
 //react-bootstrap
 import Nav from 'react-bootstrap/lib/Nav'
@@ -12,6 +13,20 @@ import NavItem from 'react-bootstrap/lib/NavItem'
 
 //oauth used for authentication
 import {OAuth} from 'oauthio-web'
+
+// actions
+import { clearShots } from '../actions/infoDisplayActions'
+
+/**
+ * Map state to props
+ *
+ * @method mapStateToProps
+ * @param {Object} state
+ * @return {Object}
+ */
+const mapStateToProps = (state) => {
+  return state;
+}
 
 /**
  * Class Header
@@ -36,10 +51,37 @@ class Header extends Component {
    */
   logoutApp() {
     OAuth.clearCache();
+    this.props.dispatch(clearShots());
     this.context.router.replace('login');
   }
 
+  /**
+   * Redirect to home view
+   *
+   * @method handleGoHome
+   */
+  handleGoHome() {
+    this.props.dispatch(clearShots());
+    this.context.router.replace('home');
+  }
+
   render() {
+
+    let pathname = this.context.router.location.pathname;
+    let homeButton;
+
+    if (pathname !== '/home' && pathname !== 'home') {
+      homeButton =
+        <NavItem>
+          <div title="GO HOME" onClick={this.handleGoHome.bind(this)}>
+            GO HOME
+            <i className="icon fa fa-home navbar-symbol"></i>
+          </div>
+        </NavItem>
+    } else {
+      homeButton = null;
+    }
+
     return (
       <div>
         <Navbar fluid collapseOnSelect className="navbar">
@@ -51,6 +93,7 @@ class Header extends Component {
           </NavbarHeader>
           <NavbarCollapse>
             <Nav pullRight>
+              { homeButton }
               <NavItem>
                 <div title="LOGOUT" onClick={this.logoutApp.bind(this)}>
                   LOGOUT
@@ -69,5 +112,7 @@ class Header extends Component {
 Header.contextTypes = {
 	router: React.PropTypes.object
 }
+
+Header = connect(mapStateToProps)(Header);
 
 export default Header;

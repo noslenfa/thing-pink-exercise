@@ -12,6 +12,7 @@ export const SHOTS_SORT_DESC = 'SHOTS_SORT_DESC'
 export const SHOTS_FILTER_TAGS = 'SHOTS_FILTER_TAGS'
 export const SHOTS_SEARCH_TAGS = 'SHOTS_SEARCH_TAGS'
 export const CLEAR_SEARCH = 'CLEAR_SEARCH'
+export const CLEAR_SHOTS = 'CLEAR_SHOTS'
 
 /**
  * Request shots action method
@@ -132,6 +133,18 @@ function searchTagsShots(shots, val) {
 function clearSearchValue() {
   return {
     type: CLEAR_SEARCH
+  }
+}
+
+/**
+ * Clear shots
+ *
+ * @method clearShots
+ * @return {Object}
+ */
+function clearShotsValues() {
+  return {
+    type: CLEAR_SHOTS
   }
 }
 
@@ -285,6 +298,20 @@ export function clearSearch() {
 
   return function(dispatch) {
     dispatch(clearSearchValue());
+  }
+
+}
+
+/**
+ * Shots clear search input action
+ *
+ * @method clearSearch
+ * @return {Function}
+ */
+export function clearShots() {
+
+  return function(dispatch) {
+    dispatch(clearShotsValues());
   }
 
 }

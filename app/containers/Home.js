@@ -72,7 +72,7 @@ class Home extends Component {
           </Col>
           <Col xs={12} sm={6}>
             <div className="home-go">
-              <Button onClick={this.handleGoInfoDisplay.bind(this)} title="GO SHOTS">GO SHOTS</Button>
+              <Button onClick={this.handleGoInfoDisplay.bind(this)} title="GO INFO DISPLAY">GO INFO</Button>
             </div>
           </Col>
         </div>

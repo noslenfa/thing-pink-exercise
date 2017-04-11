@@ -6,7 +6,8 @@ import {
   SHOTS_SORT_DESC,
   SHOTS_FILTER_TAGS,
   SHOTS_SEARCH_TAGS,
-  CLEAR_SEARCH
+  CLEAR_SEARCH,
+  CLEAR_SHOTS
 } from '../actions/infoDisplayActions'
 
 /**
@@ -101,6 +102,21 @@ const handleClearSearch = (state) => ({
 });
 
 /**
+ * Clear shots
+ *
+ * @method handleClearShots
+ * @return {Object}
+ */
+const handleClearShots = () => ({
+  numPage: 1,
+  isFetching: false,
+  error: null,
+  items: [],
+  filteredItems: [],
+  searchValue: ''
+});
+
+/**
  * Select correct handler based on type
  *
  * @method shots
@@ -130,6 +146,8 @@ export default function shots(state = {
       return handleSearchShots(state, action);
     case CLEAR_SEARCH:
       return handleClearSearch(state, action);
+    case CLEAR_SHOTS:
+      return handleClearShots();
     default:
       return state
   }
