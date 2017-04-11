@@ -66,12 +66,12 @@ class Home extends Component {
         <div className="home-title">WHERE TO GO?</div>
         <div className="home-buttons-area">
           <Col xs={12} sm={6}>
-            <div className="home-go">
+            <div className="home-go home-go-svg">
               <Button onClick={this.handleGoSVG.bind(this)} title="GO SVG">GO SVG</Button>
             </div>
           </Col>
           <Col xs={12} sm={6}>
-            <div className="home-go">
+            <div className="home-go home-go-info">
               <Button onClick={this.handleGoInfoDisplay.bind(this)} title="GO INFO DISPLAY">GO INFO</Button>
             </div>
           </Col>

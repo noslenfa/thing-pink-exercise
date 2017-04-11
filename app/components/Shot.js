@@ -56,6 +56,8 @@ class Shot extends Component {
     const tags = shot.tags;
     let tagsMapped;
 
+    console.log(shot);
+
     if (tags.length > 0) {
       tagsMapped = tags.map((tag, index) =>
         <Button
@@ -72,10 +74,10 @@ class Shot extends Component {
       <div className="shots-list-item">
         <Row className="margin-zero">
           <Col xs={4}>
-            <img src={shot.avatarUrl}/>
+            <img src={shot.imageUrl}/>
           </Col>
           <Col className="shots-list-text" xs={8}>
-            <div><span><i className="fa fa-user-circle"></i></span>{shot.username}</div>
+            <div><img className="shots-list-img" src={shot.avatarUrl}/><span className="shots-list-name">{shot.username}</span></div>
             <div><span><i className="fa fa-pencil"></i></span>{shot.title}</div>
             <div><span><i className="fa fa-heart"></i></span>{shot.likesCount}</div>
           </Col>

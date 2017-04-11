@@ -34,17 +34,14 @@
   }
 }
 
-
-  .form-group {
-    i {
-      position: relative;
-      top: -25px;
-      right: 15px;
-      float: right;
-    }
-
+.form-group {
+  i {
+    position: relative;
+    top: -25px;
+    right: 15px;
+    float: right;
   }
-
+}
 
 .shots-list-load-more {
   width: 100%;
@@ -109,6 +106,18 @@
   }
 }
 
+.shots-list-img {
+  width: 32px !important;
+  height: 32px !important;
+  margin: 2px !important;
+}
+
+.shots-list-name {
+  margin-left: 20px;
+  top: 10px;
+  position: absolute;
+}
+
 .shots-list-tags {
   div.col-xs-1 {
     font-weight: bold;
@@ -152,6 +161,14 @@
       height: 16px;
       margin-bottom: 10px;
     }
+  }
+
+  .shots-list-img {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 2px !important;
+    top: -10px;
+    position: relative;
   }
 
   .shots-list-tags {

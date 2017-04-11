@@ -32,3 +32,28 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .home-go-info {
+    margin-bottom: 100px;
+  }
+
+  .home-title {
+    font-size: 40px;
+  }
+
+  .home-go {
+    button {
+      font-size: 30px;
+      height: 200px;
+    }
+  }
+
+  .home-go-svg {
+    margin-top: 75px;
+  }
+
+  .home-go-info {
+    margin-top: 50px;
+  }
+}
