@@ -1,4 +1,3 @@
-
 /**
  * oAuth verification
  *

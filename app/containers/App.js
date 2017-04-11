@@ -13,6 +13,7 @@ import Login from './Login'
 import Home from './Home'
 import InfoDisplay from './InfoDisplay'
 import SVGDisplay from './SVGDisplay'
+import NotFound from './NotFound'
 
 /**
  * Class App
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path={'home'} component={Home} />
           <Route path={'infodisplay'} component={InfoDisplay} />
           <Route path={'svgdisplay'} component={SVGDisplay} />
+          <Route path="*" component={NotFound} />
         </Route>
       </Router>
     );

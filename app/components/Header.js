@@ -14,6 +14,9 @@ import NavItem from 'react-bootstrap/lib/NavItem'
 //oauth used for authentication
 import {OAuth} from 'oauthio-web'
 
+//utils
+import {oauthVerification} from '../utils/oauthVerification'
+
 // actions
 import { clearShots } from '../actions/infoDisplayActions'
 
@@ -67,8 +70,9 @@ class Header extends Component {
 
   render() {
 
-    let pathname = this.context.router.location.pathname;
-    let homeButton;
+    const pathname = this.context.router.location.pathname;
+    let homeButton,
+      logoutButton;
 
     if (pathname !== '/home' && pathname !== 'home') {
       homeButton =
@@ -82,6 +86,19 @@ class Header extends Component {
       homeButton = null;
     }
 
+    if(!oauthVerification()) {
+      logoutButton =
+      <NavItem>
+        <div title="LOGOUT" onClick={this.logoutApp.bind(this)}>
+          LOGOUT
+          <i className="icon fa fa-sign-out navbar-symbol"></i>
+        </div>
+      </NavItem>
+    } else {
+      logoutButton = null;
+    }
+
+
     return (
       <div>
         <Navbar fluid collapseOnSelect className="navbar">
@@ -94,12 +111,7 @@ class Header extends Component {
           <NavbarCollapse>
             <Nav pullRight>
               { homeButton }
-              <NavItem>
-                <div title="LOGOUT" onClick={this.logoutApp.bind(this)}>
-                  LOGOUT
-                  <i className="icon fa fa-sign-out navbar-symbol"></i>
-                </div>
-              </NavItem>
+              { logoutButton }
             </Nav>
           </NavbarCollapse>
         </Navbar>

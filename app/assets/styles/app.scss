@@ -5,8 +5,9 @@
 @import 'home';
 @import 'infodisplay';
 @import 'svgdisplay';
-@import 'Header';
+@import 'header';
 @import 'footer';
+@import 'notfound';
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
