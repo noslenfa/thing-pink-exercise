@@ -2,8 +2,9 @@ require('normalize.css/normalize.css')
 
 import React, { Component } from 'react'
 
-//router
-import {Link} from 'react-router'
+//react-bootstrap
+import Col from 'react-bootstrap/lib/Col'
+import Button from 'react-bootstrap/lib/Button'
 
 //utils
 import {oauthVerification} from '../utils/oauthVerification'
@@ -39,20 +40,41 @@ class Home extends Component {
     }
   }
 
+  /**
+ * Handle go svg
+ *
+ * @method handleGoSVG
+ */
+  handleGoSVG() {
+    this.context.router.replace('svgdisplay');
+  }
+
+  /**
+   * Handle go shots
+   *
+   * @method handleGoShots
+   */
+  handleGoInfoDisplay() {
+    this.context.router.replace('infodisplay');
+  }
+
   render() {
 
     return (
       <div>
         <Header></Header>
-        <div className="container login-area">
-          <div className="text-center">
-            <div>
-              <Link to="/svgdisplay">Go SVG Display</Link>
+        <div className="home-title">WHERE TO GO?</div>
+        <div className="home-buttons-area">
+          <Col xs={12} sm={6}>
+            <div className="home-go">
+              <Button onClick={this.handleGoSVG.bind(this)} title="GO SVG">GO SVG</Button>
             </div>
-            <div>
-              <Link to="/infodisplay">Go Info Display</Link>
+          </Col>
+          <Col xs={12} sm={6}>
+            <div className="home-go">
+              <Button onClick={this.handleGoInfoDisplay.bind(this)} title="GO SHOTS">GO SHOTS</Button>
             </div>
-          </div>
+          </Col>
         </div>
         <Footer></Footer>
       </div>
