@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=local APP_ENV=local webpack-dev-server --config config/webpack.dev.config.js"
+    "start": "NODE_ENV=local APP_ENV=local webpack-dev-server --config config/webpack.dev.config.js --open"
   },
   "keywords": [
     "Thing Pink",
