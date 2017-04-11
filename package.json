@@ -8,7 +8,11 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=local APP_ENV=local webpack-dev-server --config config/webpack.dev.config.js --open"
+    "clean": "npm run clean:build:folders && npm run clean:build:files",
+    "clean:build:folders": "find dist/ -maxdepth 1 -type d -not -name 'build' | xargs rm -rf",
+    "clean:build:files": "find dist/ -type f -not -name '.gitignore' | xargs rm -f",
+    "start": "NODE_ENV=local APP_ENV=local webpack-dev-server --config config/webpack.dev.config.js --open",
+    "build": "npm install && npm run clean && NODE_ENV=production APP_ENV=production webpack --config config/webpack.dist.config.js"
   },
   "keywords": [
     "Thing Pink",

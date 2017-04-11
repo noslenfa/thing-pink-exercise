@@ -36,10 +36,9 @@ const handleChangeFillColor = (state, action) => ({
  *
  * @method handleLeftMenu
  * @param {Object} state app state
- * @param {Object} action action
  * @return {Object}
  */
-const handleLeftMenu = (state, action) => ({
+const handleLeftMenu = (state) => ({
   ...state,
   leftMenuOpen: !state.leftMenuOpen
 });
@@ -50,10 +49,9 @@ const handleLeftMenu = (state, action) => ({
  *
  * @method handleRightMenu
  * @param {Object} state app state
- * @param {Object} action action
  * @return {Object}
  */
-const handleRightMenu = (state, action) => ({
+const handleRightMenu = (state) => ({
   ...state,
   rightMenuOpen: !state.rightMenuOpen
 });

@@ -16,6 +16,12 @@ To start using it just follow the [Local Setup](#local-setup) steps.
 - Enter the webapp folder and start the App by running `npm start`;
 - App should open your browser and start automatically. If not access it via: `http://localhost:3000/`
 
+## Build Setup
+- Follow the steps in [Local Setup](#local-setup) until you installed all dependencies
+- Enter the webapp folder and create a build by running `npm run build`;
+- You can find your build information inside the dist folder
+- **NOTE:** Under config/env.js you should update your production BASE_URL to your servers one (check the TODO there)
+
 ## App Information
 This app is divided in four main parts as described bellow.
 

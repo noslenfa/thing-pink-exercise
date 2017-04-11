@@ -6,7 +6,7 @@ let path = require('path'),
   FOLDERS = {
     APP: path.join(__dirname, '..', 'app'),
     BUILD: path.join(__dirname, '..', 'dist'),
-    NPM: path.join(__dirname, '..', 'node_modules'),
+    NPM: path.join(__dirname, '..', 'node_modules')
   },
   NODE_ENV = process.env.NODE_ENV,
   APP_ENV = process.env.APP_ENV || NODE_ENV,
@@ -56,7 +56,8 @@ module.exports = {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'ENV': JSON.stringify(ENV),
-        'NODE_ENV': NODE_ENV
+        'NODE_ENV': NODE_ENV,
+        'APP_ENV': APP_ENV
       })
     ],
     module: {

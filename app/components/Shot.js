@@ -56,8 +56,6 @@ class Shot extends Component {
     const tags = shot.tags;
     let tagsMapped;
 
-    console.log(shot);
-
     if (tags.length > 0) {
       tagsMapped = tags.map((tag, index) =>
         <Button
