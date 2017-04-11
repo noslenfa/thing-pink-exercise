@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux'
 
-import infodisplay from './infodisplayReducer'
+//reducers
+import infoDisplay from './infoDisplayReducer'
+import svgDisplay from './svgDisplayReducer'
 
 export default combineReducers({
-  infodisplay
+  infoDisplay,
+  svgDisplay
 })

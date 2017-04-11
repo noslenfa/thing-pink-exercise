@@ -7,7 +7,7 @@ import {
   SHOTS_FILTER_TAGS,
   SHOTS_SEARCH_TAGS,
   CLEAR_SEARCH
-} from '../actions/infodisplayActions'
+} from '../actions/infoDisplayActions'
 
 /**
  * Handle the request for fetch shots
@@ -101,7 +101,7 @@ const handleClearSearch = (state) => ({
 });
 
 /**
- * Select correct handle based on type
+ * Select correct handler based on type
  *
  * @method shots
  * @param {Object} state app state

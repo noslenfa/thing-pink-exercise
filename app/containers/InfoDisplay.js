@@ -13,7 +13,7 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 import Col from 'react-bootstrap/lib/Col'
 
 // actions
-import { fetchShots, shotsSort, searchTags } from '../actions/infodisplayActions'
+import { fetchShots, shotsSort, searchTags } from '../actions/infoDisplayActions'
 
 // components
 import Shot from '../components/Shot'
@@ -58,7 +58,7 @@ class InfoDisplay extends Component {
       this.context.router.replace('login')
     }
 
-    const numPage = this.props.infodisplay.numPage;
+    const numPage = this.props.infoDisplay.numPage;
     const initialShots = [];
 
     this.props.dispatch(fetchShots(numPage, initialShots));
@@ -91,7 +91,7 @@ class InfoDisplay extends Component {
    * @param {Array} initialShots
    */
   loadMoreShots(initialShots) {
-    let numPage = this.props.infodisplay.numPage;
+    let numPage = this.props.infoDisplay.numPage;
 
     numPage++;
 
@@ -100,10 +100,10 @@ class InfoDisplay extends Component {
 
   render() {
 
-    const shots = this.props.infodisplay.filteredItems;
-    const initialShots = this.props.infodisplay.items;
-    const isFetching = this.props.infodisplay.isFetching;
-    const searchValue = this.props.infodisplay.searchValue;
+    const shots = this.props.infoDisplay.filteredItems;
+    const initialShots = this.props.infoDisplay.items;
+    const isFetching = this.props.infoDisplay.isFetching;
+    const searchValue = this.props.infoDisplay.searchValue;
     const shotsMapped = shots.map(shot => <Col lg={6} key={shot.id}><Shot shot={shot} shots={initialShots}></Shot></Col>);
     let shotsRendered;
 

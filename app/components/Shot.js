@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
 // actions
-import { filterTags } from '../actions/infodisplayActions'
+import { filterTags } from '../actions/infoDisplayActions'
 
 /**
  * Map state to props

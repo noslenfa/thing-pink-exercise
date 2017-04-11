@@ -1,14 +1,134 @@
 //styles to login page
 @import 'variables';
 
-.svg-div-one {
-  width: 200px;
-  height: 200px;
-  background-color: red;
+@keyframes dash_one {
+  from {
+    stroke-dashoffset: 10;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.svg-div-two {
-  width: 200px;
-  height: 200px;
-  background-color: blue;
+@keyframes dash_two {
+  from {
+    stroke-dashoffset: 20;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dash_three {
+  from {
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dash_four {
+  from {
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.svg-display {
+  text-align: center;
+  width: 50%;
+  height: 50%;
+}
+
+.svg-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-25%,-50%);
+}
+
+.svg-colors-drop {
+  text-align: center;
+  position: absolute;
+  bottom: 50px;
+}
+
+.svg-colors-paint {
+  text-align: center;
+  position: absolute;
+  bottom: 100px;
+}
+
+.svg-white, .svg-red, .svg-blue, .svg-green, .svg-yellow {
+  font-size: 50px;
+  display: inline-block;
+  padding: 10px;
+  text-shadow: 1px 1px $grey-ligth;
+  cursor: pointer;
+}
+
+.svg-white {
+  color: $white;
+  &:hover {
+    color: darken($white, 10%)
+  }
+}
+
+.svg-red {
+  color: $red;
+  &:hover {
+    color: darken($red, 10%)
+  }
+}
+
+.svg-blue {
+  color: $blue;
+  &:hover {
+    color: darken($blue, 10%)
+  }
+}
+
+.svg-green {
+  color: $green;
+  &:hover {
+    color: darken($green, 10%)
+  }
+}
+
+.svg-yellow {
+  color: yellow;
+  &:hover {
+    color: darken($yellow, 10%)
+  }
+}
+
+.st0 {
+  stroke:$white;
+  stroke-width:8;
+  stroke-miterlimit:10;
+}
+.st1a, .st1b, .st1c, .st1d {
+  stroke-width:3;
+  stroke-miterlimit:10;
+}
+
+.st1a	{
+  stroke-dasharray:160;
+  animation: dash_three 5s linear;
+}
+.st1b	{
+  stroke-dasharray:250;
+  animation: dash_three 5s linear;
+}
+.st1c	{
+  stroke-dasharray:150;
+  animation: dash_three 5s linear;
+}
+.st1d	{
+  stroke-dasharray:250;
+  animation: dash_three 5s linear;
 }
