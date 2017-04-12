@@ -12,7 +12,7 @@ To start using it just follow the [Local Setup](#local-setup) steps.
 - First git clone this project `git clone https://github.com/noslenfa/thing-pink-exercise.git`
 - Enter into the correct directory, normally `thing-pink-exercise/`
 - Then we assume that you have already `node` installed, otherwise follow [installation process](https://nodejs.org/);
-- Install all the dependencies with `sudo npm install` (based on `package.json`);
+- Install all the dependencies with `npm install` (based on `package.json`);
 - Enter the webapp folder and start the App by running `npm start`;
 - App should open your browser and start automatically. If not access it via: `http://localhost:3000/`
 
