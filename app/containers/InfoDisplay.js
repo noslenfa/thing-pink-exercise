@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 //utils
-import {oauthVerification} from '../utils/oauthVerification'
+import { oauthVerification } from '../utils/oauthVerification'
 
 //react bootstrap
 import Button from 'react-bootstrap/lib/Button'

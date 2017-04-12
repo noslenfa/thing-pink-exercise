@@ -20,7 +20,9 @@ import { filterTags } from '../actions/infoDisplayActions'
  * @return {Object}
  */
 const mapStateToProps = (state) => {
+
   return state;
+
 }
 
 /**
@@ -46,7 +48,9 @@ class Shot extends Component {
    * @return {Object}
    */
   filterTags(tag, shots) {
+
     this.props.dispatch(filterTags(tag, shots));
+
   }
 
   render() {
@@ -69,6 +73,7 @@ class Shot extends Component {
     }
 
     return (
+
       <div className="shots-list-item">
         <Row className="margin-zero">
           <Col xs={4}>
@@ -90,8 +95,11 @@ class Shot extends Component {
           </Col>
         </Row>
       </div>
+
     );
+
   }
+
 }
 
 Shot = connect(mapStateToProps)(Shot);

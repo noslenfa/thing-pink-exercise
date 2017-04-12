@@ -1,4 +1,4 @@
-//header scss file
+//home scss file
 
 .home-title {
   color: white;
@@ -33,6 +33,8 @@
   }
 }
 
+
+// media querie for devices smaller than 480px
 @media screen and (max-width: 480px) {
   .home-go-info {
     margin-bottom: 100px;

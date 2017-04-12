@@ -12,10 +12,10 @@ import NavbarCollapse from 'react-bootstrap/lib/NavbarCollapse'
 import NavItem from 'react-bootstrap/lib/NavItem'
 
 //oauth used for authentication
-import {OAuth} from 'oauthio-web'
+import { OAuth } from 'oauthio-web'
 
 //utils
-import {oauthVerification} from '../utils/oauthVerification'
+import { oauthVerification } from '../utils/oauthVerification'
 
 // actions
 import { clearShots } from '../actions/infoDisplayActions'
@@ -28,7 +28,9 @@ import { clearShots } from '../actions/infoDisplayActions'
  * @return {Object}
  */
 const mapStateToProps = (state) => {
+
   return state;
+
 }
 
 /**
@@ -43,8 +45,10 @@ class Header extends Component {
    * @param {Object} context
    */
   constructor(props, context){
+
 		super(props);
     context.router;
+
 	}
 
   /**
@@ -53,9 +57,11 @@ class Header extends Component {
    * @method logoutApp
    */
   logoutApp() {
+
     OAuth.clearCache();
     this.props.dispatch(clearShots());
     this.context.router.replace('login');
+
   }
 
   /**
@@ -64,8 +70,10 @@ class Header extends Component {
    * @method handleGoHome
    */
   handleGoHome() {
+
     this.props.dispatch(clearShots());
     this.context.router.replace('home');
+
   }
 
   render() {
@@ -100,12 +108,13 @@ class Header extends Component {
 
 
     return (
+
       <div>
         <Navbar fluid collapseOnSelect className="navbar">
           <NavbarHeader>
-              <a title="GO THING PINK" href="http://thing-pink.pt">
-                <div className="navbar-header-logo"></div>
-              </a>
+            <a title="GO THING PINK" href="http://thing-pink.pt">
+              <div className="navbar-header-logo"></div>
+            </a>
             <NavbarToggle />
           </NavbarHeader>
           <NavbarCollapse>
@@ -116,8 +125,11 @@ class Header extends Component {
           </NavbarCollapse>
         </Navbar>
       </div>
+
     );
+
   }
+
 }
 
 //needed for routing purposes

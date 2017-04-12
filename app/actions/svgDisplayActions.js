@@ -10,12 +10,12 @@ export const HANDLE_RIGHT_MENU = 'HANDLE_RIGHT_MENU'
  * @param {string} svgColor
  * @return {Object}
  */
-function updateStrokeColor(svgColor) {
-  return {
-    type: CHANGE_SVG_STROKE_COLOR,
-    svgColor
-  }
-}
+const updateStrokeColor = (svgColor) => ({
+
+  type: CHANGE_SVG_STROKE_COLOR,
+  svgColor
+
+})
 
 /**
  * Change svg color action
@@ -24,12 +24,12 @@ function updateStrokeColor(svgColor) {
  * @param {string} svgColor
  * @return {Object}
  */
-function updateFillColor(svgColor) {
-  return {
-    type: CHANGE_SVG_FILL_COLOR,
-    svgColor
-  }
-}
+const updateFillColor = (svgColor) => ({
+
+  type: CHANGE_SVG_FILL_COLOR,
+  svgColor
+
+})
 
 /**
  * Handle left menu open/close
@@ -37,11 +37,11 @@ function updateFillColor(svgColor) {
  * @method handleLeftMenu
  * @return {Object}
  */
-function handleLeftMenu() {
-  return {
-    type: HANDLE_LEFT_MENU
-  }
-}
+const handleLeftMenu = () => ({
+
+  type: HANDLE_LEFT_MENU
+
+})
 
 /**
  * Handle right menu open/close
@@ -49,11 +49,11 @@ function handleLeftMenu() {
  * @method handleRightMenu
  * @return {Object}
  */
-function handleRightMenu() {
-  return {
-    type: HANDLE_RIGHT_MENU
-  }
-}
+const handleRightMenu = () => ({
+
+  type: HANDLE_RIGHT_MENU
+
+})
 
 /**
  * Change svg stroke color action
@@ -62,10 +62,10 @@ function handleRightMenu() {
  * @param {string} svgColor
  * @return {Function}
  */
-export function changeStrokeColor(svgColor) {
-  return function(dispatch) {
-    dispatch(updateStrokeColor(svgColor));
-  }
+export const changeStrokeColor = (svgColor) => dispatch => {
+
+  dispatch(updateStrokeColor(svgColor));
+
 }
 
 /**
@@ -75,10 +75,10 @@ export function changeStrokeColor(svgColor) {
  * @param {string} svgColor
  * @return {Function}
  */
-export function changeFillColor(svgColor) {
-  return function(dispatch) {
-    dispatch(updateFillColor(svgColor));
-  }
+export const changeFillColor = (svgColor) => dispatch => {
+
+  dispatch(updateFillColor(svgColor));
+
 }
 
 /**
@@ -88,12 +88,12 @@ export function changeFillColor(svgColor) {
  * @param {string} svgColor
  * @return {Function}
  */
-export function handleMenu(menu) {
-  return function(dispatch) {
-    if (menu === 'left') {
-      dispatch(handleLeftMenu());
-    } else if (menu === 'right') {
-      dispatch(handleRightMenu());
-    }
+export const handleMenu = (menu) => dispatch => {
+
+  if (menu === 'left') {
+    dispatch(handleLeftMenu());
+  } else if (menu === 'right') {
+    dispatch(handleRightMenu());
   }
+
 }

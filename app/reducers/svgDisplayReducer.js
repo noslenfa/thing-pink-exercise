@@ -14,9 +14,11 @@ import {
  * @return {Object}
  */
 const handleChangeStrokeColor = (state, action) => ({
+
   ...state,
   svgStrokeColor: action.svgColor
-});
+
+})
 
 /**
  * Handle to change svg fill color
@@ -27,9 +29,11 @@ const handleChangeStrokeColor = (state, action) => ({
  * @return {Object}
  */
 const handleChangeFillColor = (state, action) => ({
+
   ...state,
   svgFillColor: action.svgColor
-});
+
+})
 
 /**
  * Handle left menu open/close
@@ -39,9 +43,11 @@ const handleChangeFillColor = (state, action) => ({
  * @return {Object}
  */
 const handleLeftMenu = (state) => ({
+
   ...state,
   leftMenuOpen: !state.leftMenuOpen
-});
+
+})
 
 
 /**
@@ -52,9 +58,11 @@ const handleLeftMenu = (state) => ({
  * @return {Object}
  */
 const handleRightMenu = (state) => ({
+
   ...state,
   rightMenuOpen: !state.rightMenuOpen
-});
+
+})
 
 /**
  * Select correct handle based on type
@@ -64,6 +72,7 @@ const handleRightMenu = (state) => ({
  * @return {Object}
  */
 export default function shots(state = {
+
   svgStrokeColor: 'white',
   svgFillColor: 'transparent',
   leftMenuOpen: false,
@@ -81,4 +90,5 @@ export default function shots(state = {
     default:
       return state
   }
+  
 }

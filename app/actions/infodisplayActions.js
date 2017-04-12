@@ -21,9 +21,11 @@ export const CLEAR_SHOTS = 'CLEAR_SHOTS'
  * @return {Object}
  */
 function requestShots() {
+
   return {
     type: FETCH_SHOTS
   }
+
 }
 
 /**
@@ -36,12 +38,14 @@ function requestShots() {
  * @return {Object}
  */
 function receiveShots(shots, numPage, initialShots) {
+
   return {
     type: FETCH_SHOTS_FULFILLED,
     shots,
     initialShots,
     numPage
   }
+
 }
 
 /**
@@ -54,10 +58,12 @@ function receiveShots(shots, numPage, initialShots) {
  * @return {Object}
  */
 function rejectShots(error) {
+
   return {
     type: FETCH_SHOTS_REJECTED,
     error
   }
+
 }
 
 /**
@@ -69,11 +75,13 @@ function rejectShots(error) {
  * @return {Object}
  */
 function shotsSortAsc(shots, initialShots) {
+
   return {
     type: SHOTS_SORT_ASC,
     shots,
     initialShots
   }
+
 }
 
 /**
@@ -85,11 +93,13 @@ function shotsSortAsc(shots, initialShots) {
  * @return {Object}
  */
 function shotsSortDesc(shots, initialShots) {
+
   return {
     type: SHOTS_SORT_DESC,
     shots,
     initialShots
   }
+
 }
 
 /**
@@ -101,11 +111,13 @@ function shotsSortDesc(shots, initialShots) {
  * @return {Object}
  */
 function filterTagsShots(shots, val) {
+
   return {
     type: SHOTS_FILTER_TAGS,
     shots,
     val
   }
+
 }
 
 /**
@@ -117,11 +129,13 @@ function filterTagsShots(shots, val) {
  * @return {Object}
  */
 function searchTagsShots(shots, val) {
+
   return {
     type: SHOTS_SEARCH_TAGS,
     shots,
     val
   }
+
 }
 
 /**
@@ -131,9 +145,11 @@ function searchTagsShots(shots, val) {
  * @return {Object}
  */
 function clearSearchValue() {
+
   return {
     type: CLEAR_SEARCH
   }
+
 }
 
 /**
@@ -143,9 +159,11 @@ function clearSearchValue() {
  * @return {Object}
  */
 function clearShotsValues() {
+
   return {
     type: CLEAR_SHOTS
   }
+
 }
 
 /**
@@ -205,47 +223,53 @@ export const fetchShots = (numPage, initialShots) => dispatch => {
  * @param {Array} shots
  * @return {Function}
  */
-export function shotsSort(order, shots) {
+export const shotsSort = (order, shots) => dispatch => {
 
-  return function (dispatch) {
-    let orderedShots,
-      orderedInitialShots;
+  let orderedShots,
+    orderedInitialShots;
 
-    if (order === 'asc') {
-      orderedShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
-      orderedInitialShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
-      dispatch(shotsSortAsc(orderedShots, orderedInitialShots));
-    } else if (order === 'desc') {
-      orderedShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
-      orderedInitialShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
-      dispatch(shotsSortDesc(orderedShots, orderedInitialShots));
-    }
+  if (order === 'asc') {
+    // get shots ordered by likesCount and ascending order
+    orderedShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
+
+    // get shots ordered by likesCount and ascending order
+    // this is need to have always the initial state
+    orderedInitialShots = _.orderBy(shots, ['likesCount'], ['asc', 'desc']);
+    dispatch(shotsSortAsc(orderedShots, orderedInitialShots));
+  } else if (order === 'desc') {
+    // get shots ordered by likesCount and ascending order
+    orderedShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
+
+    // get shots ordered by likesCount and ascending order
+    // this is need to have always the initial state
+    orderedInitialShots = _.orderBy(shots, ['likesCount'], ['desc', 'asc']);
+    dispatch(shotsSortDesc(orderedShots, orderedInitialShots));
   }
 
 }
 
 /**
- * Shots sort action
+ * Shots filter action
  *
  * @method filterTags
  * @param {string} tag
  * @param {Array} shots
  * @return {Function}
  */
-export function filterTags(tag, shots) {
+export const filterTags = (tag, shots) => dispatch => {
 
-  return function (dispatch) {
-    let filteredTagsShots = [];
+  let filteredTagsShots = [];
 
-    shots.forEach(shot => {
-      const tags = shot.tags;
-      if (_.includes(tags, tag)) {
-        filteredTagsShots.push(shot);
-      }
-    });
+  // run trought all shots
+  shots.forEach(shot => {
+    const tags = shot.tags;
+    // verify if the selected tag is the current shot and add shot to an array
+    if (_.includes(tags, tag)) {
+      filteredTagsShots.push(shot);
+    }
+  });
 
-    dispatch(filterTagsShots(filteredTagsShots, tag));
-  }
+  dispatch(filterTagsShots(filteredTagsShots, tag));
 
 }
 
@@ -257,28 +281,31 @@ export function filterTags(tag, shots) {
  * @param {Array} shots
  * @return {Function}
  */
-export function searchTags(val, shots) {
+export const searchTags = (val, shots) => dispatch => {
 
-  return function (dispatch) {
-    let searchedTagsShots;
-    if (val === '') {
-      searchedTagsShots = shots;
-    } else {
-      let sSearched = new Set();
+  let searchedTagsShots;
+  if (val === '') {
+    searchedTagsShots = shots;
+  } else {
+    let sSearched = new Set();
 
-      _.filter(shots, shot => {
-        return _.some(shot.tags, tag => {
-          if (_.startsWith(tag, val)) {
-            sSearched.add(shot);
-          }
-        });
+    // run trhought all shots
+    _.filter(shots, shot => {
+      // return the tags if some
+      return _.some(shot.tags, tag => {
+        // go trhought tags and check if it starts with the search input value
+        if (_.startsWith(tag, val)) {
+          sSearched.add(shot);
+        }
       });
+    });
 
-      searchedTagsShots = Array.from(sSearched);
-    }
-
-    dispatch(searchTagsShots(searchedTagsShots, val));
+    // to array shots that corrspond to the properties given above
+    searchedTagsShots = Array.from(sSearched);
   }
+
+  dispatch(searchTagsShots(searchedTagsShots, val));
+  
 }
 
 /**
@@ -287,11 +314,9 @@ export function searchTags(val, shots) {
  * @method clearSearch
  * @return {Function}
  */
-export function clearSearch() {
+export const clearSearch = () => dispatch => {
 
-  return function(dispatch) {
-    dispatch(clearSearchValue());
-  }
+  dispatch(clearSearchValue());
 
 }
 
@@ -301,10 +326,8 @@ export function clearSearch() {
  * @method clearSearch
  * @return {Function}
  */
-export function clearShots() {
+export const clearShots = () => dispatch => {
 
-  return function(dispatch) {
-    dispatch(clearShotsValues());
-  }
+  dispatch(clearShotsValues());
 
 }

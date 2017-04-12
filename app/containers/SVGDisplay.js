@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import Col from 'react-bootstrap/lib/Col'
 
 //utils
-import {oauthVerification} from '../utils/oauthVerification'
+import { oauthVerification } from '../utils/oauthVerification'
 
 // actions
 import { changeStrokeColor, changeFillColor, handleMenu } from '../actions/svgDisplayActions'
@@ -24,7 +24,9 @@ import Footer from '../components/Footer'
  * @return {Object}
  */
 const mapStateToProps = (state) => {
+
   return state;
+
 }
 
 /**
@@ -39,8 +41,10 @@ class SVGDisplay extends Component {
    * @param {Object} context
    */
   constructor(props, context){
+
 		super(props);
     context.router;
+
 	}
 
   /**
@@ -49,9 +53,11 @@ class SVGDisplay extends Component {
    * @method componentWillMount
    */
   componentWillMount() {
+
     if(oauthVerification()) {
       this.context.router.replace('login')
     }
+
   }
 
   /**
@@ -60,7 +66,9 @@ class SVGDisplay extends Component {
    * @method handleSVGChangeColor
    */
   handleStrokeChangeColor(svgColor) {
+
     this.props.dispatch(changeStrokeColor(svgColor));
+
   }
 
   /**
@@ -69,7 +77,9 @@ class SVGDisplay extends Component {
    * @method handleSVGChangeColor
    */
   handleFillChangeColor(svgColor) {
+
     this.props.dispatch(changeFillColor(svgColor));
+
   }
 
   /**
@@ -78,9 +88,12 @@ class SVGDisplay extends Component {
    * @method handleMenu
    */
   handleMenu(menu) {
+
     const leftMenuOpen = this.props.svgDisplay.leftMenuOpen;
     const rightMenuOpen = this.props.svgDisplay.rightMenuOpen;
 
+    // depending on menu (left or rigth) and if it's open or not,
+    // add or remove styles to show/hide it
     if (menu === 'left') {
       if (leftMenuOpen) {
         document.getElementById('svg-menu-left').style.left = '-50px';
@@ -98,6 +111,7 @@ class SVGDisplay extends Component {
         document.getElementById('open-close-right-menu').style.right = '25px';
       }
     }
+
     this.props.dispatch(handleMenu(menu));
 
   }
@@ -139,11 +153,13 @@ class SVGDisplay extends Component {
     		l-6.4,6.704v9.783H80.896V88.862z"/>
     </svg>
     );
+
   }
 
   render() {
 
     return (
+
       <div>
         <Header></Header>
         <Col xs={12} className="svg-container">
@@ -169,8 +185,11 @@ class SVGDisplay extends Component {
         <div id="open-close-right-menu" onClick={this.handleMenu.bind(this, 'right')}><i className="fa fa-tint"></i></div>
         <Footer></Footer>
       </div>
+
     );
+
   }
+
 }
 
 //needed for routing purposes

@@ -11,15 +11,20 @@ import Footer from '../components/Footer'
 class NotFound extends Component {
 
   render() {
+
     return (
+
       <div>
         <Header />
         <div className="notfound-404">404</div>
         <div className="notfound-page">PAGE NOT FOUND</div>
         <Footer />
       </div>
+
     );
+
   }
+  
 }
 
 export default NotFound;

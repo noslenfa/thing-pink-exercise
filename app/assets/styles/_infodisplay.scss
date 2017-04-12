@@ -1,7 +1,6 @@
 //styles to login page
 
 .shots-list-area {
-  // max-width: 500px;
   margin-top: 20px;
   margin-bottom: 60px;
   background-color: $grey-ligth;
@@ -130,12 +129,14 @@
   }
 }
 
+// media querie for devices bigger than 1200px
 @media screen and (min-width: 1200px) {
   .shots-list-item {
     min-height: 218px;
   }
 }
 
+// media querie for devices smaller than 480px
 @media screen and (max-width: 480px) {
   .shots-list-item {
     div:first-child {

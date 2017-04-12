@@ -5,7 +5,7 @@ require('normalize.css/normalize.css')
 import React, { Component } from 'react'
 
 //oauth used for authentication
-import {OAuth} from 'oauthio-web'
+import { OAuth } from 'oauthio-web'
 
 //react bootstrap
 import Button from 'react-bootstrap/lib/Button'
@@ -22,8 +22,10 @@ class Login extends Component {
    * @param {Object} context
    */
   constructor(props, context){
+
 		super(props);
     context.router;
+
 	}
 
   /**
@@ -32,8 +34,10 @@ class Login extends Component {
    * @method componentWillMount
    */
   componentWillMount() {
+
     OAuth.clearCache();
     OAuth.initialize(ENV.OAUTH_IO_KEY, {cache:true});
+
   }
 
   /**
@@ -46,7 +50,8 @@ class Login extends Component {
 
     OAuth.popup(provider)
     .done(result => {
-      // twitter as a different result so we must treat and save it in localStorage
+      // twitter as a different result from the other providers
+      //  so we must treat and save it in localStorage
       if (provider === 'twitter') {
         let access_token = result.oauth_token.toString();
         localStorage.setItem('oauthio_cache', '{"oauthio_provider_twitter":1}');
@@ -65,6 +70,7 @@ class Login extends Component {
   render() {
 
     return (
+
       <div className="container login-area">
         <div className="login-area-logo"></div>
         <div className="text-center">
@@ -77,8 +83,11 @@ class Login extends Component {
           </div>
         </div>
       </div>
+
     );
+
   }
+  
 }
 
 //needed for routing purposes

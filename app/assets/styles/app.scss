@@ -9,9 +9,14 @@
 @import 'footer';
 @import 'notfound';
 
+// keyframes for loading spinner
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 html {
@@ -24,11 +29,11 @@ body {
   height: 100%;
   margin: 0;
   font-family: "OpenSans", sans-serif;
-  background: $background-blue; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient($background-blue, $black); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient($background-blue, $black); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient($background-blue, $black); /* For Firefox 3.6 to 15 */
-  background: linear-gradient($background-blue, $black); /* Standard syntax (must be last) */
+  background: $background-blue;
+  background: -webkit-linear-gradient($background-blue, $black);
+  background: -o-linear-gradient($background-blue, $black);
+  background: -moz-linear-gradient($background-blue, $black);
+  background: linear-gradient($background-blue, $black);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }

@@ -24,6 +24,7 @@ class App extends Component {
   render() {
 
     return (
+
       <Router history={browserHistory}>
         <Route path={'/'} handler={App}>
           <IndexRedirect to="login" />
@@ -34,8 +35,11 @@ class App extends Component {
           <Route path="*" component={NotFound} />
         </Route>
       </Router>
+
     );
+
   }
+  
 }
 
 export default App;

@@ -25,8 +25,10 @@ class Home extends Component {
    * @param {Object} context
    */
   constructor(props, context){
+
 		super(props);
     context.router;
+
 	}
 
   /**
@@ -35,9 +37,11 @@ class Home extends Component {
    * @method componentWillMount
    */
   componentWillMount() {
+
     if(oauthVerification()) {
       this.context.router.replace('login')
     }
+
   }
 
   /**
@@ -46,7 +50,9 @@ class Home extends Component {
  * @method handleGoSVG
  */
   handleGoSVG() {
+
     this.context.router.replace('svgdisplay');
+
   }
 
   /**
@@ -55,12 +61,15 @@ class Home extends Component {
    * @method handleGoShots
    */
   handleGoInfoDisplay() {
+
     this.context.router.replace('infodisplay');
+
   }
 
   render() {
 
     return (
+
       <div>
         <Header></Header>
         <div className="home-title">WHERE TO GO?</div>
@@ -80,7 +89,9 @@ class Home extends Component {
       </div>
 
     );
+
   }
+  
 }
 
 //needed for routing purposes

@@ -18,9 +18,11 @@ import {
  * @return {Object}
  */
 const handleFetchShots = (state) => ({
+
   ...state,
   isFetching: true
-});
+
+})
 
 /**
  * Handle fetch request errors
@@ -30,10 +32,12 @@ const handleFetchShots = (state) => ({
  * @return {Object}
  */
 const handleFetchError = (state, action) => ({
+
   ...state,
   isFetching: false,
   error: action.error
-});
+
+})
 
 /**
  * Handle fetch request success
@@ -61,7 +65,8 @@ const handleFetchSuccess = (state, action) => {
     items: [...state.items, ...shots],
     filteredItems: [...state.filteredItems, ...shots]
   }
-};
+
+}
 
 /**
  * Handle shots sort based on order (asc, desc)
@@ -71,10 +76,12 @@ const handleFetchSuccess = (state, action) => {
  * @return {Object}
  */
 const handleSortShots = (state, action) => ({
+
   ...state,
   filteredItems: action.shots,
   initialItems: action.initialShots
-});
+
+})
 
 /**
  * Handle shots search
@@ -84,10 +91,12 @@ const handleSortShots = (state, action) => ({
  * @return {Object}
  */
 const handleSearchShots = (state, action) => ({
+
   ...state,
   filteredItems: action.shots,
   searchValue: action.val
-});
+
+})
 
 /**
  * Clear search input
@@ -97,9 +106,11 @@ const handleSearchShots = (state, action) => ({
  * @return {Object}
  */
 const handleClearSearch = (state) => ({
+
   ...state,
   searchValue: ''
-});
+
+})
 
 /**
  * Clear shots
@@ -108,13 +119,15 @@ const handleClearSearch = (state) => ({
  * @return {Object}
  */
 const handleClearShots = () => ({
+
   numPage: 1,
   isFetching: false,
   error: null,
   items: [],
   filteredItems: [],
   searchValue: ''
-});
+
+})
 
 /**
  * Select correct handler based on type
@@ -124,6 +137,7 @@ const handleClearShots = () => ({
  * @return {Object}
  */
 export default function shots(state = {
+
   numPage: 1,
   isFetching: false,
   error: null,
@@ -151,4 +165,5 @@ export default function shots(state = {
     default:
       return state
   }
+  
 }
